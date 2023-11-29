@@ -1,3 +1,17 @@
+DROP TABLE ApplyTo;
+DROP TABLE Interviews;
+DROP TABLE Interviewer;
+DROP TABLE JobPostingOfferedPosted;
+DROP TABLE EmployeeWorksAt;
+DROP TABLE SubmitsApplication;
+DROP TABLE AdvisedStudentAccesses;
+DROP TABLE EmployedCoopAdvisor;
+DROP TABLE CoopProgram;
+DROP TABLE University;
+DROP TABLE JobBoard;
+DROP TABLE Location;
+DROP TABLE Company;
+
 CREATE TABLE Location(
     PostalCode CHAR(6) PRIMARY KEY,
     City VARCHAR(50)
