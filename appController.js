@@ -30,8 +30,8 @@ router.post("/initiate-demotable", async (req, res) => {
 });
 
 router.post("/insert-demotable", async (req, res) => {
-    const { id, position } = req.body;
-    const insertResult = await appService.insertDemotable(id, position);
+    const { id, position, deadline } = req.body;
+    const insertResult = await appService.insertDemotable(id, position, deadline);
     if (insertResult) {
         res.json({ success: true });
     } else {
