@@ -64,7 +64,7 @@ async function initiateDemotable() {
         const result = await connection.execute(`
             CREATE TABLE DEMOTABLE (
                 id NUMBER PRIMARY KEY,
-                name VARCHAR2(20)
+                position VARCHAR2(50)
             )
         `);
         return true;
@@ -73,11 +73,11 @@ async function initiateDemotable() {
     });
 }
 
-async function insertDemotable(id, name) {
+async function insertDemotable(id, position) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `INSERT INTO DEMOTABLE (id, name) VALUES (:id, :name)`,
-            [id, name],
+            `INSERT INTO DEMOTABLE (id, position) VALUES (:id, :position)`,
+            [id, position],
             { autoCommit: true }
         );
 
