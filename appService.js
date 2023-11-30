@@ -74,14 +74,13 @@ async function initiateDemotable() {
     });
 }
 
-async function insertDemotable(id, position, deadline) {
+async function insertDemotable(studentnumber, name,email,year,napplicaitons,boardtitle,advisorid) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `INSERT INTO DEMOTABLE (id, position, deadline) VALUES (:id, :position, :deadline)`,
-            [id, position, deadline],
+            'INSERT INTO ADVISEDSTUDENTACCESSES (STUDENT#, NAME,EMAIL,YEAR,NAPPLICATIONS,BOARDTITLE,ADVISORID) VALUES (:studentnumber,:name,:email,:year,:napplications,:boardtitle,:advisorid)',
+        [studentnumber,name,email,year,napplicaitons,boardtitle,advisorid],
             { autoCommit: true }
-        );
-
+    );
         return result.rowsAffected && result.rowsAffected > 0;
     }).catch(() => {
         return false;
