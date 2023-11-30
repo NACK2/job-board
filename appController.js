@@ -29,8 +29,9 @@ router.post("/initiate-demotable", async (req, res) => {
     }
 });
 
-router.post("/insert-Student", async (req, res) => {
-    const insertResult = await appService.insertDemotable(55, "John","johnlman1@yahoo.com",2021,0,"UBC",1);
+router.post("/insert-demotable", async (req, res) => {
+    const { id, position, deadline } = req.body;
+    const insertResult = await appService.insertDemotable(id, position, deadline);
     if (insertResult) {
         res.json({ success: true });
     } else {
