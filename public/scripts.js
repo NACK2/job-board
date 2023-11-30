@@ -83,8 +83,19 @@ async function insertDemotable(event) {
     event.preventDefault();
 
     const idValue = document.getElementById('insertId').value;
+    const companyValue = document.getElementById('insertCompany').value;
     const positionValue = document.getElementById('insertPosition').value;
     const deadlineValue = document.getElementById('insertDeadline').value;
+
+    // termsList returns array of radio buttons (winter, spring, summer)
+    const termsList = document.getElementsByName('term');
+    let termValue; // termValue will be set to the radio button value that is checked (Winter, Spring, Summer)
+    for (let i=0; i<termsList.length; ++i) {
+        if (termsList[i].checked) { // finding the button that was checked
+            termValue = termsList[i].value;
+        }
+    }
+    console.log(termValue, positionValue);
 
     const response = await fetch('/insert-demotable', {
         method: 'POST',
@@ -93,8 +104,10 @@ async function insertDemotable(event) {
         },
         body: JSON.stringify({
             id: idValue,
+            company: companyValue,
             position: positionValue,
-            deadline: deadlineValue
+            deadline: deadlineValue,
+            term: termValue
         })
     });
 
