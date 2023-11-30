@@ -36,6 +36,7 @@
                 <th>Position</th>
                 <th>Deadline</th>
                 <th>Term</th>
+                <th>Duration</th>
             </tr>
         </thead>
         <tbody>
@@ -60,7 +61,7 @@
         Deadline: <input type="date" id="insertDeadline" placeholder="Deadline"> <br><br>
 
         Term:
-        <br> <!-- name is for grouping the buttons -->
+        <br> <!-- "name" attribute is for grouping the buttons -->
         <input type="radio" id="winter" name="term" value="Winter">
         <label for="winter">Winter</label><br>
 
@@ -69,6 +70,18 @@
 
         <input type="radio" id="summer" name="term" value="Summer">
         <label for="summer">Summer</label> <br><br>
+
+        Duration:
+        <br> <!-- "name" attribute is for grouping the buttons -->
+        <input type="radio" id="four" name="duration" value="4">
+        <label for="four">4</label><br>
+
+        <input type="radio" id="eight" name="duration" value="8">
+        <label for="eight">8</label><br>
+
+        <input type="radio" id="twelve" name="duration" value="12">
+        <label for="twelve">12</label> <br><br>
+
 
         <button type="submit"> insert </button> <br>
     </form>

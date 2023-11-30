@@ -67,7 +67,8 @@ async function initiateDemotable() {
                 company VARCHAR2(50),
                 position VARCHAR2(50),
                 deadline VARCHAR2(10),
-                term VARCHAR2(6)
+                term VARCHAR2(6),
+                duration NUMBER
             )
         `);
         return true;
@@ -76,11 +77,11 @@ async function initiateDemotable() {
     });
 }
 
-async function insertDemotable(id, company, position, deadline, term) {
+async function insertDemotable(id, company, position, deadline, term, duration) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `INSERT INTO DEMOTABLE (id, company, position, deadline, term) VALUES (:id, :company, :position, :deadline, :term)`,
-            [id, company, position, deadline, term],
+            `INSERT INTO DEMOTABLE (id, company, position, deadline, term, duration) VALUES (:id, :company, :position, :deadline, :term, :duration)`,
+            [id, company, position, deadline, term, duration],
             { autoCommit: true }
         );
 

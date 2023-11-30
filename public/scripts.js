@@ -95,7 +95,15 @@ async function insertDemotable(event) {
             termValue = termsList[i].value;
         }
     }
-    console.log(termValue, positionValue);
+
+    // durationList is array of radio buttons with values of either 4, 8, or 12
+    const durationList = document.getElementsByName('duration');
+    let durationValue; // durationValue will be the selected button's value
+    for (let i=0; i<durationList.length; ++i) {
+        if (durationList[i].checked) { // finding the button that was checked
+            durationValue = durationList[i].value;
+        }
+    }
 
     const response = await fetch('/insert-demotable', {
         method: 'POST',
@@ -107,7 +115,8 @@ async function insertDemotable(event) {
             company: companyValue,
             position: positionValue,
             deadline: deadlineValue,
-            term: termValue
+            term: termValue,
+            duration: durationValue
         })
     });
 
