@@ -105,6 +105,9 @@ async function insertDemotable(event) {
         }
     }
 
+    // gives todays date; when a user inserts a job posting, todays date will automatically be used as the job posted date
+    const currentDate = new Date().toDateString();
+
     const response = await fetch('/insert-demotable', {
         method: 'POST',
         headers: {
@@ -116,7 +119,8 @@ async function insertDemotable(event) {
             position: positionValue,
             deadline: deadlineValue,
             term: termValue,
-            duration: durationValue
+            duration: durationValue,
+            datePosted: currentDate
         })
     });
 
