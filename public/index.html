@@ -47,7 +47,15 @@
     </table>
 
     <br><hr><br> <!-- ========================================================================= -->
+    <h2>Filter Jobs</h2>
 
+    <form id="filterBtn">
+        What column would you like to filter on? : <input type="text" id="filter" placeholder="eg. Company"> <br><br>
+
+        <button type="submit"> Filter </button> <br>
+        <div id="filterResultMsg"></div>
+    </form>
+    <br><hr><br> <!-- ========================================================================= -->
     <h2>Reset Job Board</h2>
     <p>If you wish to reset the table press on the reset button. If this is the first time you're running this page, you MUST use reset</p>
     <button id="resetBtn"> Reset </button> <br>
@@ -106,11 +114,11 @@
 
 
 
-    <h2>Update Name in DemoTable</h2>
+    <h2>Update Position Details</h2>
     <p>The values are case sensitive and if you enter in the wrong case, the update statement will not do anything.</p>
-    <form id="updataNameDemotable">
-        Old Name: <input type="text" id="updateOldName" placeholder="Enter Old Name" required> <br><br>
-        New Name: <input type="text" id="updateNewName" placeholder="Enter New Name" maxlength="20"> <br><br>
+    <form id="updataPositionDetails">
+        Target ID: <input type="text" id="targetID" placeholder="Enter target ID" required inputmode="numeric"> <br><br>
+        Update Position Details: <input type="text" id="updatePositionDetails" placeholder="Enter New Position Details"> <br><br>
 
         <button type="submit"> Update </button> <br>
     </form>

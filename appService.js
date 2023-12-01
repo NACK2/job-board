@@ -106,11 +106,11 @@ async function removeIDJobBoard(removeID) {
     });
 }
 
-async function updateNameDemotable(oldName, newName) {
+async function updateNameDemotable(targetid, newName) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `UPDATE DEMOTABLE SET name=:newName where name=:oldName`,
-            [newName, oldName],
+            `UPDATE DEMOTABLE SET position=:newName where id=:targetid`,
+            [newName, targetid],
             { autoCommit: true }
         );
 
@@ -135,37 +135,36 @@ function getUserInput(promptText) {
 
 async function filterTuples(columnName) {
     let input;
-    let sqlQuery;
-
     return await withOracleDB(async (connection) => {
         if(!columnName || columnName != undefined) {
+            let result;
             switch(columnName) {
                 case 'ID':
                     input = parseInt(getUserInput('Filtering for posting id:'));
-                    sqlQuery = `SELECT *
+                    result = await connection.execute(`SELECT *
                                 FROM JobPostingOfferedPosted j
-                                WHERE j.PostingID = ${input}`;
+                                WHERE j.PostingID = ${input}`)
                     break;
 
                 case 'Company':
                     input = getUserInput("Filtering for company name:");
-                    sqlQuery = `SELECT *
+                    result = await connection.execute(`SELECT *
                                 FROM JobPostingOfferedPosted j
-                                WHERE j.CompanyName = ${input}`;
+                                WHERE j.CompanyName = ${input}`)
                     break;
 
                 case 'Position':
                     input = getUserInput("Filtering for posting position:");
-                    sqlQuery = `SELECT *
+                    result = await connection.execute(`SELECT *
                                 FROM JobPostingOfferedPosted j
-                                WHERE j.Position = ${input}`;
+                                WHERE j.Position = ${input}`)
                     break;
 
                 case 'Deadline':
                     input = getUserInput("Filtering for posting deadline (YYYY-MM-DD HH24:MI:SS):");
-                    sqlQuery = `SELECT *
+                    result = await connection.execute(`SELECT *
                                 FROM JobPostingOfferedPosted j
-                                WHERE j.Deadline = TO_TIMESTAMP('${input}', 'YYYY-MM-DD HH24:MI:SS')`;
+                                WHERE j.Deadline = TO_TIMESTAMP('${input}', 'YYYY-MM-DD HH24:MI:SS')`)
                     break;
 
                 // case 'Term':
@@ -177,18 +176,19 @@ async function filterTuples(columnName) {
 
                 case 'Duration':
                     input = parseInt(getUserInput('Filtering for placement duration:'));
-                    sqlQuery = `SELECT *
+                    result = await connection.execute(`SELECT *
                                 FROM JobPostingOfferedPosted j
-                                WHERE j.Duration = ${input}`;
+                                WHERE j.Duration = ${input}`)
                     break;
 
                 case 'DatePosted':
                     input = getUserInput("Filtering for posting date (YYYY-MM-DD HH24:MI:SS):");
-                    sqlQuery = `SELECT *
+                    result = await connection.execute(`SELECT *
                                 FROM JobPostingOfferedPosted j
-                                WHERE j.TimePosted = TO_TIMESTAMP('${input}', 'YYYY-MM-DD HH24:MI:SS')`;
+                                WHERE j.TimePosted = TO_TIMESTAMP('${input}', 'YYYY-MM-DD HH24:MI:SS')`)
                     break;
             }
+            return result.rows;
         }
     })
 }
@@ -200,5 +200,6 @@ module.exports = {
     insertJobBoard,
     removeIDJobBoard,
     updateNameDemotable,
-    countJobBoard
+    countJobBoard,
+    filterTuples
 };

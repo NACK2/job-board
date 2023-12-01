@@ -83,12 +83,12 @@ CREATE TABLE EmployeeWorksAt(
 
 CREATE TABLE JobPostingOfferedPosted(
     PostingID INTEGER PRIMARY KEY,
+    CompanyName VARCHAR(50) NOT NULL,
+    Position VARCHAR(50),
+    Deadline VARCHAR(10),
     Term VARCHAR(6),
     Duration INTEGER,
     DatePosted VARCHAR(10),
-    Deadline VARCHAR(10),
-    Position VARCHAR(50),
-    CompanyName VARCHAR(50) NOT NULL,
     BoardTitle VARCHAR(50),
     FOREIGN KEY (CompanyName) REFERENCES Company(CompanyName),
     FOREIGN KEY (BoardTitle) REFERENCES JobBoard(BoardTitle)

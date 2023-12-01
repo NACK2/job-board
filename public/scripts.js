@@ -77,6 +77,24 @@ async function resetJobBoard() {
         alert("Error initiating table!");
     }
 }
+async function filterJobBoard() {
+    const columnName = document.getElementById('filter').value;
+    const response = await fetch("/filter-jobboard", {
+        method: 'GET',
+        body: JSON.stringify({
+            columnName: columnName,
+        })
+    });
+    const responseData = await response.json();
+
+    if (responseData.success) {
+        const messageElement = document.getElementById('filterResultMsgResultMsg');
+        messageElement.textContent = "filtered successfully!";
+        fetchTableData();
+    } else {
+        alert("Error filtering table!");
+    }
+}
 
 // Inserts new job posting into the job board
 async function insertJobBoard(event) {
@@ -170,19 +188,19 @@ async function removeIDJobBoard(event) {
 
 
 // Updates names in the job board
-async function updateNameDemotable(event) {
+async function updatePositionDetail(event) {
     event.preventDefault();
 
-    const oldNameValue = document.getElementById('updateOldName').value;
-    const newNameValue = document.getElementById('updateNewName').value;
+    const targetID = document.getElementById('targetID').value;
+    const newNameValue = document.getElementById('updateNewPositionDetails').value;
 
-    const response = await fetch('/update-name-demotable', {
+    const response = await fetch('/update-name-jobpostingofferedposted', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            oldName: oldNameValue,
+            targetID: parseInt(targetID),
             newName: newNameValue
         })
     });
@@ -224,13 +242,14 @@ window.onload = function() {
     checkDbConnection();
     fetchTableData();
     document.getElementById("resetBtn").addEventListener("click", resetJobBoard);
+    document.getElementById("filterBtn").addEventListener("click", filterJobBoard);
     document.getElementById("insertJobBoard").addEventListener("submit", insertJobBoard);
 
 
     document.getElementById("removeIDJobBoard").addEventListener("submit", removeIDJobBoard);
 
 
-    document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
+    document.getElementById("updatePositionDetails").addEventListener("submit", updatePositionDetail);
     document.getElementById("countJobBoard").addEventListener("click", countJobBoard);
 };
 

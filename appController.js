@@ -51,8 +51,8 @@ router.post("/remove-id-jobboard", async (req, res) => {
 });
 
 router.post("/update-name-demotable", async (req, res) => {
-    const { oldName, newName } = req.body;
-    const updateResult = await appService.updateNameDemotable(oldName, newName);
+    const { targetID, newName } = req.body;
+    const updateResult = await appService.updateNameDemotable(targetID, newName);
     if (updateResult) {
         res.json({ success: true });
     } else {
@@ -74,6 +74,10 @@ router.get('/count-jobboard', async (req, res) => {
         });
     }
 });
+router.get('/filter-jobboard', async (req, res) => {
+    const tableContent = await appService.filterTuples();
+    res.json({data: tableContent});
 
+});
 
 module.exports = router;
