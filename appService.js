@@ -46,7 +46,7 @@ async function testOracleConnection() {
 
 async function fetchJobBoardFromDb() {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM DEMOTABLE');
+        const result = await connection.execute('SELECT * FROM JOBPOSTINGOFFEREDPOSTED');
         return result.rows;
     }).catch(() => {
         return [];
@@ -56,33 +56,22 @@ async function fetchJobBoardFromDb() {
 async function initiateJobBoard() {
     return await withOracleDB(async (connection) => {
         try {
-            await connection.execute(`DROP TABLE DEMOTABLE`);
+            await connection.execute(`DROP TABLE JOBPOSTINGOFFEREDPOSTED`);
         } catch(err) {
             console.log('Table might not exist, proceeding to create...');
         }
 
-        const result = await connection.execute(`
-            CREATE TABLE DEMOTABLE (
-                id NUMBER PRIMARY KEY,
-                company VARCHAR2(50),
-                position VARCHAR2(50),
-                deadline VARCHAR2(10),
-                term VARCHAR2(6),
-                duration NUMBER,
-                datePosted VARCHAR2(50)
-            )
-        `);
         return true;
     }).catch(() => {
         return false;
     });
 }
 
-async function insertJobBoard(id, company, position, deadline, term, duration, datePosted) {
+async function insertJobBoard(id, company, position, deadline, term, duration, datePosted,boardTitle) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `INSERT INTO DEMOTABLE (id, company, position, deadline, term, duration, datePosted) VALUES (:id, :company, :position, :deadline, :term, :duration, :datePosted)`,
-            [id, company, position, deadline, term, duration, datePosted],
+            `INSERT INTO JOBPOSTINGOFFEREDPOSTED (postingid, companyname, position, deadline, term, duration, datePosted,boardtitle) VALUES (:id, :company, :position, :deadline, :term, :duration, :datePosted,:boardTitle)`,
+            [id, company, position, deadline, term, duration, datePosted,boardTitle],
             { autoCommit: true }
         );
 
@@ -95,7 +84,7 @@ async function insertJobBoard(id, company, position, deadline, term, duration, d
 async function removeIDJobBoard(removeID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `DELETE FROM DEMOTABLE WHERE id=:removeID`,
+            `DELETE FROM JOBPOSTINGOFFEREDPOSTED WHERE postingid=:removeID`,
             [removeID],
             {autoCommit: true}
         );
@@ -106,10 +95,10 @@ async function removeIDJobBoard(removeID) {
     });
 }
 
-async function updateNameDemotable(targetid, newName) {
+async function updateNamejobpostingofferedposted(targetid, newName) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `UPDATE DEMOTABLE SET position=:newName where id=:targetid`,
+            `UPDATE JOBPOSTINGOFFEREDPOSTED SET postion=:newName where id=:targetid`,
             [newName, targetid],
             { autoCommit: true }
         );
@@ -122,7 +111,7 @@ async function updateNameDemotable(targetid, newName) {
 
 async function countJobBoard() {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT Count(*) FROM DEMOTABLE');
+        const result = await connection.execute('SELECT Count(*) FROM JOBPOSTINGOFFEREDPOSTED');
         return result.rows[0][0];
     }).catch(() => {
         return -1;
@@ -199,7 +188,7 @@ module.exports = {
     initiateJobBoard,
     insertJobBoard,
     removeIDJobBoard,
-    updateNameDemotable,
+    updateNamejobpostingofferedposted,
     countJobBoard,
     filterTuples
 };

@@ -79,6 +79,7 @@ CREATE TABLE EmployeeWorksAt(
     EmployeeName VARCHAR(50),
     PRIMARY KEY (CompanyName, EmployeeID),
     FOREIGN KEY (CompanyName) REFERENCES Company(CompanyName)
+                            ON DELETE CASCADE
 );
 
 CREATE TABLE JobPostingOfferedPosted(
@@ -88,7 +89,7 @@ CREATE TABLE JobPostingOfferedPosted(
     Deadline VARCHAR(10),
     Term VARCHAR(6),
     Duration INTEGER,
-    DatePosted VARCHAR(10),
+    DatePosted VARCHAR(20),
     BoardTitle VARCHAR(50),
     FOREIGN KEY (CompanyName) REFERENCES Company(CompanyName),
     FOREIGN KEY (BoardTitle) REFERENCES JobBoard(BoardTitle)
@@ -98,8 +99,9 @@ CREATE TABLE ApplyTo(
     StudentID INTEGER,
     PostingID INTEGER,
     PRIMARY KEY (StudentID, PostingID),
-    FOREIGN KEY (StudentID) REFERENCES AdvisedStudentAccesses(StudentID),
+    FOREIGN KEY (StudentID) REFERENCES AdvisedStudentAccesses(StudentID) ON DELETE CASCADE ,
     FOREIGN KEY (PostingID) REFERENCES JobPostingOfferedPosted(PostingID)
+                    ON DELETE CASCADE
 );
 
 CREATE TABLE Interviewer(
@@ -107,8 +109,8 @@ CREATE TABLE Interviewer(
     EmployeeID INTEGER,
     Status VARCHAR(50),
     PRIMARY KEY (CompanyName, EmployeeID),
-    FOREIGN KEY (CompanyName) REFERENCES Company(CompanyName),
-    FOREIGN KEY (CompanyName, EmployeeID) REFERENCES EmployeeWorksAt(CompanyName, EmployeeID)
+    FOREIGN KEY (CompanyName) REFERENCES Company(CompanyName) ON DELETE CASCADE ,
+    FOREIGN KEY (CompanyName, EmployeeID) REFERENCES EmployeeWorksAt(CompanyName, EmployeeID) ON DELETE CASCADE
 );
 
 CREATE TABLE Interviews(
@@ -117,9 +119,9 @@ CREATE TABLE Interviews(
     StudentID INTEGER,
     InterviewDate DATE,
     PRIMARY KEY (CompanyName, EmployeeID, StudentID),
-    FOREIGN KEY (CompanyName) REFERENCES  Company(CompanyName),
-    FOREIGN KEY (CompanyName, EmployeeID) REFERENCES EmployeeWorksAt(CompanyName, EmployeeID),
-    FOREIGN KEY (StudentID) REFERENCES AdvisedStudentAccesses(StudentID)
+    FOREIGN KEY (CompanyName) REFERENCES  Company(CompanyName) ON DELETE CASCADE ,
+    FOREIGN KEY (CompanyName, EmployeeID) REFERENCES EmployeeWorksAt(CompanyName, EmployeeID) ON DELETE CASCADE,
+    FOREIGN KEY (StudentID) REFERENCES AdvisedStudentAccesses(StudentID) ON DELETE CASCADE
 );
 
 INSERT INTO Location(PostalCode, City) VALUES ('123456', 'Vancouver');

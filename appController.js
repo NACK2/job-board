@@ -31,7 +31,7 @@ router.post("/initiate-jobboard", async (req, res) => {
 
 router.post("/insert-jobboard", async (req, res) => {
     const { id, company, position, deadline, term, duration, datePosted } = req.body;
-    const insertResult = await appService.insertJobBoard(id, company, position, deadline, term, duration, datePosted);
+    const insertResult = await appService.insertJobBoard(id, company, position, deadline, term, duration, datePosted,"Board 1");
     if (insertResult) {
         res.json({ success: true });
     } else {
@@ -50,9 +50,9 @@ router.post("/remove-id-jobboard", async (req, res) => {
     }
 });
 
-router.post("/update-name-demotable", async (req, res) => {
+router.post("/update-name-jobpostingofferedposted", async (req, res) => {
     const { targetID, newName } = req.body;
-    const updateResult = await appService.updateNameDemotable(targetID, newName);
+    const updateResult = await appService.updateNamejobpostingofferedposted(targetID, newName);
     if (updateResult) {
         res.json({ success: true });
     } else {
@@ -75,7 +75,8 @@ router.get('/count-jobboard', async (req, res) => {
     }
 });
 router.get('/filter-jobboard', async (req, res) => {
-    const tableContent = await appService.filterTuples();
+    const { columnName } = req.body;
+    const tableContent = await appService.filterTuples(columnName);
     res.json({data: tableContent});
 
 });
