@@ -135,6 +135,40 @@ async function insertJobBoard(event) {
     }
 }
 
+
+
+
+// Removes job postings with corresponding ID
+async function removeIDJobBoard(event) {
+    event.preventDefault();
+
+    const idToFind = document.getElementById('removeID').value;
+    const response = await fetch('/remove-id-jobboard', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            removeID: idToFind,
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('updateRemoveIDResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Removed Job Posting!";
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error finding ID!";
+    }
+}
+
+
+
+
+
+
 // Updates names in the job board
 async function updateNameDemotable(event) {
     event.preventDefault();
@@ -191,6 +225,11 @@ window.onload = function() {
     fetchTableData();
     document.getElementById("resetBtn").addEventListener("click", resetJobBoard);
     document.getElementById("insertJobBoard").addEventListener("submit", insertJobBoard);
+
+
+    document.getElementById("removeIDJobBoard").addEventListener("submit", removeIDJobBoard);
+
+
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("countJobBoard").addEventListener("click", countJobBoard);
 };

@@ -39,6 +39,17 @@ router.post("/insert-jobboard", async (req, res) => {
     }
 });
 
+router.post("/remove-id-jobboard", async (req, res) => {
+    const { removeID } = req.body;
+    const updateResult = await appService.removeIDJobBoard(removeID);
+
+    if (updateResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 router.post("/update-name-demotable", async (req, res) => {
     const { oldName, newName } = req.body;
     const updateResult = await appService.updateNameDemotable(oldName, newName);
@@ -52,13 +63,13 @@ router.post("/update-name-demotable", async (req, res) => {
 router.get('/count-jobboard', async (req, res) => {
     const tableCount = await appService.countJobBoard();
     if (tableCount >= 0) {
-        res.json({ 
-            success: true,  
+        res.json({
+            success: true,
             count: tableCount
         });
     } else {
-        res.status(500).json({ 
-            success: false, 
+        res.status(500).json({
+            success: false,
             count: tableCount
         });
     }

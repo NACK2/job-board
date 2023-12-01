@@ -92,6 +92,20 @@ async function insertJobBoard(id, company, position, deadline, term, duration, d
     });
 }
 
+async function removeIDJobBoard(removeID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `DELETE FROM DEMOTABLE WHERE id=:removeID`,
+            [removeID],
+            {autoCommit: true}
+        );
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
 async function updateNameDemotable(oldName, newName) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -184,6 +198,7 @@ module.exports = {
     fetchJobBoardFromDb,
     initiateJobBoard,
     insertJobBoard,
+    removeIDJobBoard,
     updateNameDemotable,
     countJobBoard
 };
