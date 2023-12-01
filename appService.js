@@ -45,7 +45,9 @@ async function testOracleConnection() {
 
 async function fetchJobBoardFromDb() {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM JOBPOSTINGOFFEREDPOSTED');
+        const result = await connection.execute(
+            `SELECT PostingID, CompanyName, Position, Deadline, Term, Duration, DatePosted
+            FROM JOBPOSTINGOFFEREDPOSTED`);
         return result.rows;
     }).catch(() => {
         return [];
@@ -66,11 +68,11 @@ async function initiateJobBoard() {
     });
 }
 
-async function insertJobBoard(id, company, position, deadline, term, duration, datePosted,boardTitle) {
+async function insertJobBoard(id, company, position, deadline, term, duration, datePosted, boardTitle) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `INSERT INTO JOBPOSTINGOFFEREDPOSTED (postingid, companyname, position, deadline, term, duration, datePosted,boardtitle) VALUES (:id, :company, :position, :deadline, :term, :duration, :datePosted,:boardTitle)`,
-            [id, company, position, deadline, term, duration, datePosted,boardTitle],
+            `INSERT INTO JOBPOSTINGOFFEREDPOSTED (postingid, companyname, position, deadline, term, duration, datePosted, boardtitle) VALUES (:id, :company, :position, :deadline, :term, :duration, :datePosted, :boardTitle)`,
+            [id, company, position, deadline, term, duration, datePosted, boardTitle],
             { autoCommit: true }
         );
 
