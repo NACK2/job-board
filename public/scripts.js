@@ -77,24 +77,6 @@ async function resetJobBoard() {
         alert("Error initiating table!");
     }
 }
-async function filterJobBoard() {
-    const columnName = document.getElementById('filter').value;
-    const response = await fetch("/filter-jobboard", {
-        method: 'GET',
-        body: JSON.stringify({
-            columnName: columnName,
-        })
-    });
-    const responseData = await response.json();
-
-    if (responseData.success) {
-        const messageElement = document.getElementById('filterResultMsgResultMsg');
-        messageElement.textContent = "filtered successfully!";
-        fetchTableData();
-    } else {
-        alert("Error filtering table!");
-    }
-}
 
 // Inserts new job posting into the job board
 async function insertJobBoard(event) {
@@ -153,8 +135,25 @@ async function insertJobBoard(event) {
     }
 }
 
+// WIP
+async function filterJobBoard() {
+    const columnInput = document.getElementById('filterInput').value;
+    const response = await fetch("/filter-jobboard", {
+        method: 'POST',
+        body: JSON.stringify({
+            columnName: columnInput,
+        })
+    });
+    const responseData = await response.json();
 
-
+    const messageElement = document.getElementById('filterResultMsg');
+    if (responseData.success) {
+        messageElement.textContent = "filtered successfully!";
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error filtering table!";
+    }
+}
 
 // Removes job postings with corresponding ID
 async function removeIDJobBoard(event) {
@@ -181,11 +180,6 @@ async function removeIDJobBoard(event) {
         messageElement.textContent = "Error finding ID!";
     }
 }
-
-
-
-
-
 
 // Updates names in the job board
 async function updatePositionDetail(event) {
@@ -242,13 +236,9 @@ window.onload = function() {
     checkDbConnection();
     fetchTableData();
     document.getElementById("resetBtn").addEventListener("click", resetJobBoard);
-    document.getElementById("filterBtn").addEventListener("click", filterJobBoard);
     document.getElementById("insertJobBoard").addEventListener("submit", insertJobBoard);
-
-
+    document.getElementById("filterBtn").addEventListener("submit", filterJobBoard);
     document.getElementById("removeIDJobBoard").addEventListener("submit", removeIDJobBoard);
-
-
     document.getElementById("updatePositionDetails").addEventListener("submit", updatePositionDetail);
     document.getElementById("countJobBoard").addEventListener("click", countJobBoard);
 };

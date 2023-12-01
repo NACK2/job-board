@@ -39,6 +39,13 @@ router.post("/insert-jobboard", async (req, res) => {
     }
 });
 
+// WIP
+router.post('/filter-jobboard', async (req, res) => {
+    const { columnName } = req.body;
+    const tableContent = await appService.filterJobBoard(columnName);
+    res.json({data: tableContent});
+});
+
 router.post("/remove-id-jobboard", async (req, res) => {
     const { removeID } = req.body;
     const updateResult = await appService.removeIDJobBoard(removeID);
@@ -73,12 +80,6 @@ router.get('/count-jobboard', async (req, res) => {
             count: tableCount
         });
     }
-});
-router.get('/filter-jobboard', async (req, res) => {
-    const { columnName } = req.body;
-    const tableContent = await appService.filterTuples(columnName);
-    res.json({data: tableContent});
-
 });
 
 module.exports = router;

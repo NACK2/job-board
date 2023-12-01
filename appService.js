@@ -32,7 +32,6 @@ async function withOracleDB(action) {
     }
 }
 
-
 // ----------------------------------------------------------
 // Core functions for database operations
 // Modify these functions, especially the SQL queries, based on your project's requirements and design.
@@ -81,48 +80,12 @@ async function insertJobBoard(id, company, position, deadline, term, duration, d
     });
 }
 
-async function removeIDJobBoard(removeID) {
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            `DELETE FROM JOBPOSTINGOFFEREDPOSTED WHERE postingid=:removeID`,
-            [removeID],
-            {autoCommit: true}
-        );
-
-        return result.rowsAffected && result.rowsAffected > 0;
-    }).catch(() => {
-        return false;
-    });
-}
-
-async function updateNamejobpostingofferedposted(targetid, newName) {
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            `UPDATE JOBPOSTINGOFFEREDPOSTED SET postion=:newName where id=:targetid`,
-            [newName, targetid],
-            { autoCommit: true }
-        );
-
-        return result.rowsAffected && result.rowsAffected > 0;
-    }).catch(() => {
-        return false;
-    });
-}
-
-async function countJobBoard() {
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT Count(*) FROM JOBPOSTINGOFFEREDPOSTED');
-        return result.rows[0][0];
-    }).catch(() => {
-        return -1;
-    });
-}
-
 function getUserInput(promptText) {
     return prompt(promptText);
 }
 
-async function filterTuples(columnName) {
+// WIP
+async function filterJobBoard(columnName) {
     let input;
     return await withOracleDB(async (connection) => {
         if(!columnName || columnName != undefined) {
@@ -182,13 +145,50 @@ async function filterTuples(columnName) {
     })
 }
 
+async function removeIDJobBoard(removeID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `DELETE FROM JOBPOSTINGOFFEREDPOSTED WHERE postingid=:removeID`,
+            [removeID],
+            {autoCommit: true}
+        );
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
+async function updateNamejobpostingofferedposted(targetid, newName) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `UPDATE JOBPOSTINGOFFEREDPOSTED SET postion=:newName where id=:targetid`,
+            [newName, targetid],
+            { autoCommit: true }
+        );
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
+async function countJobBoard() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT Count(*) FROM JOBPOSTINGOFFEREDPOSTED');
+        return result.rows[0][0];
+    }).catch(() => {
+        return -1;
+    });
+}
+
 module.exports = {
     testOracleConnection,
     fetchJobBoardFromDb,
     initiateJobBoard,
     insertJobBoard,
+    filterJobBoard,
     removeIDJobBoard,
     updateNamejobpostingofferedposted,
-    countJobBoard,
-    filterTuples
+    countJobBoard
 };
