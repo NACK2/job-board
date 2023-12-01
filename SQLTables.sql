@@ -13,24 +13,24 @@ DROP TABLE Location;
 DROP TABLE Company;
 
 CREATE TABLE Location(
-                         PostalCode CHAR(6) PRIMARY KEY,
-                         City VARCHAR(50)
+    PostalCode CHAR(6) PRIMARY KEY,
+    City VARCHAR(50)
 );
 
 CREATE TABLE University(
-                           UniversityName VARCHAR(50) UNIQUE,
-                           PostalCode CHAR(6),
-                           PRIMARY KEY (UniversityName, PostalCode),
-                           FOREIGN KEY (PostalCode) REFERENCES Location(PostalCode)
+    UniversityName VARCHAR(50) UNIQUE,
+    PostalCode CHAR(6),
+    PRIMARY KEY (UniversityName, PostalCode),
+    FOREIGN KEY (PostalCode) REFERENCES Location(PostalCode)
 );
 
 CREATE TABLE CoopProgram(
-                            DeptName CHAR(20),
-                            nStudents INTEGER,
-                            UniversityName VARCHAR(50),
-                            PostalCode CHAR(6),
-                            PRIMARY KEY (DeptName, UniversityName, PostalCode),
-                            FOREIGN KEY (UniversityName, PostalCode) REFERENCES University(UniversityName, PostalCode)
+    DeptName CHAR(20),
+    nStudents INTEGER,
+    UniversityName VARCHAR(50),
+    PostalCode CHAR(6),
+    PRIMARY KEY (DeptName, UniversityName, PostalCode),
+    FOREIGN KEY (UniversityName, PostalCode) REFERENCES University(UniversityName, PostalCode)
 );
 
 CREATE TABLE JobBoard(
@@ -38,87 +38,88 @@ CREATE TABLE JobBoard(
 );
 
 CREATE TABLE EmployedCoopAdvisor(
-                                    AdvisorID INTEGER PRIMARY KEY,
-                                    AdvisorName CHAR(20),
-                                    AdvisorEmail CHAR(20) UNIQUE,
-                                    DeptName CHAR(20) NOT NULL,
-                                    UniversityName VARCHAR(50),
-                                    PostalCode CHAR(6),
-                                    FOREIGN KEY (DeptName, UniversityName, PostalCode) REFERENCES CoopProgram(DeptName, UniversityName, PostalCode),
-                                    FOREIGN KEY (UniversityName, PostalCode) REFERENCES University(UniversityName, PostalCode)
+    AdvisorID INTEGER PRIMARY KEY,
+    AdvisorName CHAR(20),
+    AdvisorEmail CHAR(20) UNIQUE,
+    DeptName CHAR(20) NOT NULL,
+    UniversityName VARCHAR(50),
+    PostalCode CHAR(6),
+    FOREIGN KEY (DeptName, UniversityName, PostalCode) REFERENCES CoopProgram(DeptName, UniversityName, PostalCode),
+    FOREIGN KEY (UniversityName, PostalCode) REFERENCES University(UniversityName, PostalCode)
 );
 
 CREATE TABLE AdvisedStudentAccesses(
-                                       StudentID INTEGER PRIMARY KEY,
-                                       Name CHAR(20),
-                                       Email CHAR(20) UNIQUE,
-                                       Year INTEGER,
-                                       nApplications INTEGER,
-                                       BoardTitle VARCHAR(50) NOT NULL,
-                                       AdvisorID INTEGER NOT NULL,
-                                       FOREIGN KEY (BoardTitle) REFERENCES JobBoard(BoardTitle),
-                                       FOREIGN KEY (AdvisorID) REFERENCES EmployedCoopAdvisor(AdvisorID)
+    StudentID INTEGER PRIMARY KEY,
+    Name CHAR(20),
+    Email CHAR(20) UNIQUE,
+    Year INTEGER,
+    nApplications INTEGER,
+    BoardTitle VARCHAR(50) NOT NULL,
+    AdvisorID INTEGER NOT NULL,
+    FOREIGN KEY (BoardTitle) REFERENCES JobBoard(BoardTitle),
+    FOREIGN KEY (AdvisorID) REFERENCES EmployedCoopAdvisor(AdvisorID)
 );
 
 CREATE TABLE SubmitsApplication(
-                                   StudentID INTEGER NOT NULL,
-                                   ApplicationID INTEGER PRIMARY KEY,
-                                   TimeSubmitted TIMESTAMP,
-                                   FOREIGN KEY (StudentID) REFERENCES AdvisedStudentAccesses(StudentID)
+    StudentID INTEGER NOT NULL,
+    ApplicationID INTEGER PRIMARY KEY,
+    TimeSubmitted TIMESTAMP,
+    FOREIGN KEY (StudentID) REFERENCES AdvisedStudentAccesses(StudentID)
 );
 
 CREATE TABLE Company(
-                        CompanyName VARCHAR(50) PRIMARY KEY,
-                        Address VARCHAR(50),
-                        Website VARCHAR(50)
+    CompanyName VARCHAR(50) PRIMARY KEY,
+    Address VARCHAR(50),
+    Website VARCHAR(50)
 );
 
 CREATE TABLE EmployeeWorksAt(
-                                CompanyName VARCHAR(50),
-                                EmployeeID INTEGER,
-                                EmployeeName VARCHAR(50),
-                                PRIMARY KEY (CompanyName, EmployeeID),
-                                FOREIGN KEY (CompanyName) REFERENCES Company(CompanyName)
+    CompanyName VARCHAR(50),
+    EmployeeID INTEGER,
+    EmployeeName VARCHAR(50),
+    PRIMARY KEY (CompanyName, EmployeeID),
+    FOREIGN KEY (CompanyName) REFERENCES Company(CompanyName)
 );
 
 CREATE TABLE JobPostingOfferedPosted(
-                                        PostingID INTEGER PRIMARY KEY,
-                                        TimePosted TIMESTAMP,
-                                        Deadline TIMESTAMP,
-                                        Duration INTEGER,
-                                        Position VARCHAR(50),
-                                        CompanyName VARCHAR(50) NOT NULL,
-                                        BoardTitle VARCHAR(50),
-                                        FOREIGN KEY (CompanyName) REFERENCES Company(CompanyName),
-                                        FOREIGN KEY (BoardTitle) REFERENCES JobBoard(BoardTitle)
+    PostingID INTEGER PRIMARY KEY,
+    Term VARCHAR(6),
+    Duration INTEGER,
+    DatePosted VARCHAR(10),
+    Deadline VARCHAR(10),
+    Position VARCHAR(50),
+    CompanyName VARCHAR(50) NOT NULL,
+    BoardTitle VARCHAR(50),
+    FOREIGN KEY (CompanyName) REFERENCES Company(CompanyName),
+    FOREIGN KEY (BoardTitle) REFERENCES JobBoard(BoardTitle)
 );
 
 CREATE TABLE ApplyTo(
-                        StudentID INTEGER,
-                        PostingID INTEGER,
-                        PRIMARY KEY (StudentID, PostingID),
-                        FOREIGN KEY (StudentID) REFERENCES AdvisedStudentAccesses(StudentID),
-                        FOREIGN KEY (PostingID) REFERENCES JobPostingOfferedPosted(PostingID)
+    StudentID INTEGER,
+    PostingID INTEGER,
+    PRIMARY KEY (StudentID, PostingID),
+    FOREIGN KEY (StudentID) REFERENCES AdvisedStudentAccesses(StudentID),
+    FOREIGN KEY (PostingID) REFERENCES JobPostingOfferedPosted(PostingID)
 );
 
 CREATE TABLE Interviewer(
-                            CompanyName VARCHAR(50),
-                            EmployeeID INTEGER,
-                            Status VARCHAR(50),
-                            PRIMARY KEY (CompanyName, EmployeeID),
-                            FOREIGN KEY (CompanyName) REFERENCES Company(CompanyName),
-                            FOREIGN KEY (CompanyName, EmployeeID) REFERENCES EmployeeWorksAt(CompanyName, EmployeeID)
+    CompanyName VARCHAR(50),
+    EmployeeID INTEGER,
+    Status VARCHAR(50),
+    PRIMARY KEY (CompanyName, EmployeeID),
+    FOREIGN KEY (CompanyName) REFERENCES Company(CompanyName),
+    FOREIGN KEY (CompanyName, EmployeeID) REFERENCES EmployeeWorksAt(CompanyName, EmployeeID)
 );
 
 CREATE TABLE Interviews(
-                           CompanyName VARCHAR(50),
-                           EmployeeID INTEGER,
-                           StudentID INTEGER,
-                           InterviewDate DATE,
-                           PRIMARY KEY (CompanyName, EmployeeID, StudentID),
-                           FOREIGN KEY (CompanyName) REFERENCES  Company(CompanyName),
-                           FOREIGN KEY (CompanyName, EmployeeID) REFERENCES EmployeeWorksAt(CompanyName, EmployeeID),
-                           FOREIGN KEY (StudentID) REFERENCES AdvisedStudentAccesses(StudentID)
+    CompanyName VARCHAR(50),
+    EmployeeID INTEGER,
+    StudentID INTEGER,
+    InterviewDate DATE,
+    PRIMARY KEY (CompanyName, EmployeeID, StudentID),
+    FOREIGN KEY (CompanyName) REFERENCES  Company(CompanyName),
+    FOREIGN KEY (CompanyName, EmployeeID) REFERENCES EmployeeWorksAt(CompanyName, EmployeeID),
+    FOREIGN KEY (StudentID) REFERENCES AdvisedStudentAccesses(StudentID)
 );
 
 INSERT INTO Location(PostalCode, City) VALUES ('123456', 'Vancouver');
@@ -185,16 +186,16 @@ INSERT INTO EmployeeWorksAt(CompanyName, EmployeeID, EmployeeName) VALUES ('Comp
 INSERT INTO EmployeeWorksAt(CompanyName, EmployeeID, EmployeeName) VALUES ('Company 4', 204, 'Employee 4');
 INSERT INTO EmployeeWorksAt(CompanyName, EmployeeID, EmployeeName) VALUES ('Company 5', 205, 'Employee 5');
 
-INSERT INTO JobPostingOfferedPosted(PostingID, TimePosted, Deadline, Duration, Position, CompanyName, BoardTitle)
-VALUES (6, TO_TIMESTAMP('2023-10-19 08:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2023-10-20 23:59:00', 'YYYY-MM-DD HH24:MI:SS'), 4, 'Researcher', 'Company 1', 'Board 1');
-INSERT INTO JobPostingOfferedPosted(PostingID, TimePosted, Deadline, Duration, Position, CompanyName, BoardTitle)
-VALUES (7, TO_TIMESTAMP('2023-10-19 08:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2023-10-20 09:00:00', 'YYYY-MM-DD HH24:MI:SS'), 4, 'QA Tester', 'Company 2', 'Board 2');
-INSERT INTO JobPostingOfferedPosted(PostingID, TimePosted, Deadline, Duration, Position, CompanyName, BoardTitle)
-VALUES (8, TO_TIMESTAMP('2023-10-19 08:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2023-10-20 09:00:00', 'YYYY-MM-DD HH24:MI:SS'), 4, 'IT Specialist', 'Company 3', 'Board 3');
-INSERT INTO JobPostingOfferedPosted(PostingID, TimePosted, Deadline, Duration, Position, CompanyName, BoardTitle)
-VALUES (9, TO_TIMESTAMP('2023-10-19 08:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2023-10-20 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), 4, 'Data Analyst', 'Company 4', 'Board 4');
-INSERT INTO JobPostingOfferedPosted(PostingID, TimePosted, Deadline, Duration, Position, CompanyName, BoardTitle)
-VALUES (10, TO_TIMESTAMP('2023-10-19 08:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2023-10-20 23:59:00', 'YYYY-MM-DD HH24:MI:SS'), 4, 'Software Engineer', 'Company 5', 'Board 5');
+INSERT INTO JobPostingOfferedPosted(PostingID, Term, Duration, DatePosted, Deadline, Position, CompanyName, BoardTitle)
+VALUES (6, 'Winter', 4, '2023-10-19', '2024-01-30', 'Researcher', 'Company 1', 'Board 1');
+INSERT INTO JobPostingOfferedPosted(PostingID, Term, Duration, DatePosted, Deadline, Position, CompanyName, BoardTitle)
+VALUES (7, 'Spring', 8, '2023-11-22', '2024-02-22', 'Software Developer', 'Company 2', 'Board 2');
+INSERT INTO JobPostingOfferedPosted(PostingID, Term, Duration, DatePosted, Deadline, Position, CompanyName, BoardTitle)
+VALUES (8, 'Summer', 12, '2023-11-18', '2024-03-26', 'Product Manager', 'Company 3', 'Board 3');
+INSERT INTO JobPostingOfferedPosted(PostingID, Term, Duration, DatePosted, Deadline, Position, CompanyName, BoardTitle)
+VALUES (9, 'Winter', 4, '2023-10-22', '2024-01-18', 'IT Consultant', 'Company 4', 'Board 4');
+INSERT INTO JobPostingOfferedPosted(PostingID, Term, Duration, DatePosted, Deadline, Position, CompanyName, BoardTitle)
+VALUES (10, 'Spring', 8, '2023-11-26', '2024-2-14', 'Software Developer', 'Company 5', 'Board 5');
 
 INSERT INTO ApplyTo(StudentID, PostingID) VALUES (1, 6);
 INSERT INTO ApplyTo(StudentID, PostingID) VALUES (2, 7);
