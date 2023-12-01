@@ -115,6 +115,70 @@ async function countJobBoard() {
     });
 }
 
+function getUserInput(promptText) {
+    return prompt(promptText);
+}
+
+async function filterTuples(columnName) {
+    let input;
+    let sqlQuery;
+
+    return await withOracleDB(async (connection) => {
+        if(!columnName || columnName != undefined) {
+            switch(columnName) {
+                case 'ID':
+                    input = parseInt(getUserInput('Filtering for posting id:'));
+                    sqlQuery = `SELECT *
+                                FROM JobPostingOfferedPosted j
+                                WHERE j.PostingID = ${input}`;
+                    break;
+
+                case 'Company':
+                    input = getUserInput("Filtering for company name:");
+                    sqlQuery = `SELECT *
+                                FROM JobPostingOfferedPosted j
+                                WHERE j.CompanyName = ${input}`;
+                    break;
+
+                case 'Position':
+                    input = getUserInput("Filtering for posting position:");
+                    sqlQuery = `SELECT *
+                                FROM JobPostingOfferedPosted j
+                                WHERE j.Position = ${input}`;
+                    break;
+
+                case 'Deadline':
+                    input = getUserInput("Filtering for posting deadline (YYYY-MM-DD HH24:MI:SS):");
+                    sqlQuery = `SELECT *
+                                FROM JobPostingOfferedPosted j
+                                WHERE j.Deadline = TO_TIMESTAMP('${input}', 'YYYY-MM-DD HH24:MI:SS')`;
+                    break;
+
+                // case 'Term':
+                //     input = parseInt(getUserInput('Filtering for placement term:'));
+                //     sqlQuery = `SELECT *
+                //                 FROM JobPostingOfferedPosted j
+                //                 WHERE j.term = ${input}`;
+                //     break;
+
+                case 'Duration':
+                    input = parseInt(getUserInput('Filtering for placement duration:'));
+                    sqlQuery = `SELECT *
+                                FROM JobPostingOfferedPosted j
+                                WHERE j.Duration = ${input}`;
+                    break;
+
+                case 'DatePosted':
+                    input = getUserInput("Filtering for posting date (YYYY-MM-DD HH24:MI:SS):");
+                    sqlQuery = `SELECT *
+                                FROM JobPostingOfferedPosted j
+                                WHERE j.TimePosted = TO_TIMESTAMP('${input}', 'YYYY-MM-DD HH24:MI:SS')`;
+                    break;
+            }
+        }
+    })
+}
+
 module.exports = {
     testOracleConnection,
     fetchJobBoardFromDb,
