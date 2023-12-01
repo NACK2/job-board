@@ -44,7 +44,7 @@ async function testOracleConnection() {
     });
 }
 
-async function fetchDemotableFromDb() {
+async function fetchJobBoardFromDb() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT * FROM DEMOTABLE');
         return result.rows;
@@ -53,7 +53,7 @@ async function fetchDemotableFromDb() {
     });
 }
 
-async function initiateDemotable() {
+async function initiateJobBoard() {
     return await withOracleDB(async (connection) => {
         try {
             await connection.execute(`DROP TABLE DEMOTABLE`);
@@ -78,7 +78,7 @@ async function initiateDemotable() {
     });
 }
 
-async function insertDemotable(id, company, position, deadline, term, duration, datePosted) {
+async function insertJobBoard(id, company, position, deadline, term, duration, datePosted) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `INSERT INTO DEMOTABLE (id, company, position, deadline, term, duration, datePosted) VALUES (:id, :company, :position, :deadline, :term, :duration, :datePosted)`,
@@ -106,7 +106,7 @@ async function updateNameDemotable(oldName, newName) {
     });
 }
 
-async function countDemotable() {
+async function countJobBoard() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT Count(*) FROM DEMOTABLE');
         return result.rows[0][0];
@@ -117,9 +117,9 @@ async function countDemotable() {
 
 module.exports = {
     testOracleConnection,
-    fetchDemotableFromDb,
-    initiateDemotable, 
-    insertDemotable, 
-    updateNameDemotable, 
-    countDemotable
+    fetchJobBoardFromDb,
+    initiateJobBoard,
+    insertJobBoard,
+    updateNameDemotable,
+    countJobBoard
 };

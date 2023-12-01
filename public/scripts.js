@@ -36,24 +36,24 @@ async function checkDbConnection() {
     });
 }
 
-// Fetches data from the demotable and displays it.
+// Fetches data from the job board and displays it
 async function fetchAndDisplayUsers() {
-    const tableElement = document.getElementById('demotable');
+    const tableElement = document.getElementById('jobBoard');
     const tableBody = tableElement.querySelector('tbody');
 
-    const response = await fetch('/demotable', {
+    const response = await fetch('/jobboard', {
         method: 'GET'
     });
 
     const responseData = await response.json();
-    const demotableContent = responseData.data;
+    const jobBoardContent = responseData.data;
 
     // Always clear old, already fetched data before new fetching process.
     if (tableBody) {
         tableBody.innerHTML = '';
     }
 
-    demotableContent.forEach(user => {
+    jobBoardContent.forEach(user => {
         const row = tableBody.insertRow();
         user.forEach((field, index) => {
             const cell = row.insertCell(index);
@@ -62,9 +62,9 @@ async function fetchAndDisplayUsers() {
     });
 }
 
-// This function resets or initializes the demotable.
-async function resetDemotable() {
-    const response = await fetch("/initiate-demotable", {
+// This function resets or initializes the job board
+async function resetJobBoard() {
+    const response = await fetch("/initiate-jobboard", {
         method: 'POST'
     });
     const responseData = await response.json();
@@ -78,8 +78,8 @@ async function resetDemotable() {
     }
 }
 
-// Inserts new records into the demotable.
-async function insertDemotable(event) {
+// Inserts new job posting into the job board
+async function insertJobBoard(event) {
     event.preventDefault();
 
     const idValue = document.getElementById('insertId').value;
@@ -108,7 +108,7 @@ async function insertDemotable(event) {
     // gives todays date; when a user inserts a job posting, todays date will automatically be used as the job posted date
     const currentDate = new Date().toDateString();
 
-    const response = await fetch('/insert-demotable', {
+    const response = await fetch('/insert-jobboard', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -135,7 +135,7 @@ async function insertDemotable(event) {
     }
 }
 
-// Updates names in the demotable.
+// Updates names in the job board
 async function updateNameDemotable(event) {
     event.preventDefault();
 
@@ -164,10 +164,10 @@ async function updateNameDemotable(event) {
     }
 }
 
-// Counts rows in the demotable.
+// Counts rows in the job board.
 // Modify the function accordingly if using different aggregate functions or procedures.
-async function countDemotable() {
-    const response = await fetch("/count-demotable", {
+async function countJobBoard() {
+    const response = await fetch("/count-jobboard", {
         method: 'GET'
     });
 
@@ -176,7 +176,7 @@ async function countDemotable() {
 
     if (responseData.success) {
         const tupleCount = responseData.count;
-        messageElement.textContent = `The number of tuples in the job board: ${tupleCount}`;
+        messageElement.textContent = `The number of job postings in the job board: ${tupleCount}`;
     } else {
         alert("Error in count!");
     }
@@ -189,10 +189,10 @@ async function countDemotable() {
 window.onload = function() {
     checkDbConnection();
     fetchTableData();
-    document.getElementById("resetBtn").addEventListener("click", resetDemotable);
-    document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
+    document.getElementById("resetBtn").addEventListener("click", resetJobBoard);
+    document.getElementById("insertJobBoard").addEventListener("submit", insertJobBoard);
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
-    document.getElementById("countDemotable").addEventListener("click", countDemotable);
+    document.getElementById("countJobBoard").addEventListener("click", countJobBoard);
 };
 
 // General function to refresh the displayed table data. 

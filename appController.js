@@ -15,13 +15,13 @@ router.get('/check-db-connection', async (req, res) => {
     }
 });
 
-router.get('/demotable', async (req, res) => {
-    const tableContent = await appService.fetchDemotableFromDb();
+router.get('/jobboard', async (req, res) => {
+    const tableContent = await appService.fetchJobBoardFromDb();
     res.json({data: tableContent});
 });
 
-router.post("/initiate-demotable", async (req, res) => {
-    const initiateResult = await appService.initiateDemotable();
+router.post("/initiate-jobboard", async (req, res) => {
+    const initiateResult = await appService.initiateJobBoard();
     if (initiateResult) {
         res.json({ success: true });
     } else {
@@ -29,9 +29,9 @@ router.post("/initiate-demotable", async (req, res) => {
     }
 });
 
-router.post("/insert-demotable", async (req, res) => {
+router.post("/insert-jobboard", async (req, res) => {
     const { id, company, position, deadline, term, duration, datePosted } = req.body;
-    const insertResult = await appService.insertDemotable(id, company, position, deadline, term, duration, datePosted);
+    const insertResult = await appService.insertJobBoard(id, company, position, deadline, term, duration, datePosted);
     if (insertResult) {
         res.json({ success: true });
     } else {
@@ -49,8 +49,8 @@ router.post("/update-name-demotable", async (req, res) => {
     }
 });
 
-router.get('/count-demotable', async (req, res) => {
-    const tableCount = await appService.countDemotable();
+router.get('/count-jobboard', async (req, res) => {
+    const tableCount = await appService.countJobBoard();
     if (tableCount >= 0) {
         res.json({ 
             success: true,  
