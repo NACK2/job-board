@@ -5,12 +5,12 @@ body {
     max-width: 800px;
     margin: auto; /* centres everything */
     line-height: 1.6;
-    background: rgb(146, 168, 209);
+    background: #e9dab7;
     color: black;
 }
 
 hr {
-    border-top: 2px solid rgb(44, 51, 62);
+    border-top: 4px solid rgb(44, 51, 62);
     margin: auto;
 }
 
@@ -18,40 +18,40 @@ hr {
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #fff;
+    background-color: #f5f5dc;
     box-shadow: 0 1px 12px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
 
-th, td {
+th, td { /* spacing out table heading and data */
     padding: 10px 15px;
-    /* border-bottom: 1px solid #ddd; */
 }
 
-th {
-    background-color: #f2f2f2;
+th { /* beige-ish table header */
+    background-color: #e7e7c7;
     color: black;
     font-weight: bold;
 }
 
-tr:last-child td {
+/* tr:last-child td {
     border-bottom: none;
-}
+} */
 
-tr:hover {
-    background-color: #f5f5f5;
-    /* cursor: pointer; */
+tr:hover { /* when hovering on any of the rows (except header), row will be highlighted */
+    background-color: #e7e7c7;
+    cursor:cell;
 }
 
 button {
-    /* margin: 0 10px 15px 0; */
+    margin: 0 10px 15px 0;
     color: black;
     width: 100px;
     height: 50px;
     font-size: 17px;
     font-family: "Trirong"; 
+    font-weight: bold;
 
-    background: #4a74b7;
+    background: #4a82b7;
     box-shadow: 0 0 10px #eee;
     border-radius: 10px;
 }
@@ -64,8 +64,8 @@ button:hover {
     top: 5px;
 }
 
-button:active {
-    background-color: #89919f;
+#resetBtn {
+    background: #c25858;
 }
 
 /* INPUT STYLES */

@@ -71,7 +71,7 @@ async function resetDemotable() {
 
     if (responseData.success) {
         const messageElement = document.getElementById('resetResultMsg');
-        messageElement.textContent = "demotable initiated successfully!";
+        messageElement.textContent = "Job board initiated successfully!";
         fetchTableData();
     } else {
         alert("Error initiating table!");
@@ -176,9 +176,9 @@ async function countDemotable() {
 
     if (responseData.success) {
         const tupleCount = responseData.count;
-        messageElement.textContent = `The number of tuples in demotable: ${tupleCount}`;
+        messageElement.textContent = `The number of tuples in the job board: ${tupleCount}`;
     } else {
-        alert("Error in count demotable!");
+        alert("Error in count!");
     }
 }
 
@@ -189,7 +189,7 @@ async function countDemotable() {
 window.onload = function() {
     checkDbConnection();
     fetchTableData();
-    document.getElementById("resetDemotable").addEventListener("click", resetDemotable);
+    document.getElementById("resetBtn").addEventListener("click", resetDemotable);
     document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
