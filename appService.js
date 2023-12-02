@@ -73,6 +73,24 @@ async function fetchApplicationsBoardFromDb() {
         return [];
     });
 }
+async function fetchDivideBoardFromDb() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT Name
+             FROM AdvisedStudentAccesses A
+             WHERE NOT EXISTS (
+                 (SELECT PostingID
+                  FROM JobPostingOfferedPosted)
+                 MINUS
+                 (SELECT PostingID
+                 FROM ApplyTo AP
+                 WHERE AP.StudentID = A.StudentID)
+                       )`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
 async function initiateJobBoard() {
     return await withOracleDB(async (connection) => {
         try {
@@ -92,6 +110,19 @@ async function insertJobBoard(id, company, position, deadline, term, duration, d
         const result = await connection.execute(
             `INSERT INTO JOBPOSTINGOFFEREDPOSTED (postingid, companyname, position, deadline, term, duration, datePosted, boardtitle) VALUES (:id, :company, :position, :deadline, :term, :duration, :datePosted, :boardTitle)`,
             [id, company, position, deadline, term, duration, datePosted, boardTitle],
+            { autoCommit: true }
+        );
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+async function insertApplication(studentID,postingID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `INSERT INTO APPLYTO (studentid,postingid) VALUES (:studentID, :postingID)`,
+            [studentID,postingID],
             { autoCommit: true }
         );
 
@@ -213,7 +244,6 @@ async function countJobBoard() {
         return -1;
     });
 }
-
 module.exports = {
     testOracleConnection,
     fetchJobBoardFromDb,
@@ -224,5 +254,7 @@ module.exports = {
     updatePositionJobBoard,
     countJobBoard,
     fetchStudentsBoardFromDb,
-    fetchApplicationsBoardFromDb
+    fetchApplicationsBoardFromDb,
+    fetchDivideBoardFromDb,
+    insertApplication
 };

@@ -27,7 +27,10 @@ router.get('/applicationsboard', async (req, res) => {
     const tableContent = await appService.fetchApplicationsBoardFromDb();
     res.json({data: tableContent});
 });
-
+router.get('/divide-jobboard', async (req, res) => {
+    const tableContent = await appService.fetchDivideBoardFromDb();
+    res.json({data: tableContent});
+});
 router.post("/initiate-jobboard", async (req, res) => {
     const initiateResult = await appService.initiateJobBoard();
     if (initiateResult) {
@@ -40,6 +43,15 @@ router.post("/initiate-jobboard", async (req, res) => {
 router.post("/insert-jobboard", async (req, res) => {
     const { id, company, position, deadline, term, duration, datePosted } = req.body;
     const insertResult = await appService.insertJobBoard(id, company, position, deadline, term, duration, datePosted,"Board 1");
+    if (insertResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+router.post("/insert-application", async (req, res) => {
+    const { studentid,postingid} = req.body;
+    const insertResult = await appService.insertApplication(studentid,postingid);
     if (insertResult) {
         res.json({ success: true });
     } else {

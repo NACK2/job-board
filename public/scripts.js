@@ -120,7 +120,60 @@ async function resetJobBoard() {
         alert("Error initiating table!");
     }
 }
+async function divideJobBoard() {
+    const response = await fetch("/divide-jobboard", {
+        method: 'GET'
+    });
+    const responseData = await response.json();
 
+    if (responseData.success) {
+        const tableBody = document.getElementById('DivideBoardBody');
+        const jobBoardContent = responseData.data;
+
+        // Always clear old, already fetched data before new fetching process.
+        if (tableBody) {
+            tableBody.innerHTML = '';
+        }
+
+        jobBoardContent.forEach(user => {
+            const row = tableBody.insertRow();
+            user.forEach((field, index) => {
+                const cell = row.insertCell(index);
+                cell.textContent = field;
+            });
+        });
+    } else {
+        const messageElement = document.getElementById('DivideResultMsg');
+        messageElement.textContent = "Error finding Student";
+    }
+}
+async function insertApplication(event) {
+    event.preventDefault();
+
+    const studentid = document.getElementById('studentID').value;
+    const postingid = document.getElementById('postingID').value;
+
+    const response = await fetch('/insert-application', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            studentid: studentid,
+            postingid: postingid
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('DivideResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Data inserted successfully!";
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error inserting data!";
+    }
+}
 // Inserts new job posting into the job board
 async function insertJobBoard(event) {
     event.preventDefault();
@@ -329,6 +382,8 @@ window.onload = function() {
     checkDbConnection();
     fetchTableData();
     document.getElementById("resetBtn").addEventListener("click", resetJobBoard);
+    document.getElementById("Divide").addEventListener("click", divideJobBoard);
+    document.getElementById("insertApplication").addEventListener("click", insertApplication);
     document.getElementById("insertJobBoard").addEventListener("submit", insertJobBoard);
     document.getElementById("filterJobBoard").addEventListener("submit", filterJobBoard);
     document.getElementById("removeIDJobBoard").addEventListener("submit", removeIDJobBoard);
