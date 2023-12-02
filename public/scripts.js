@@ -120,6 +120,7 @@ async function resetJobBoard() {
         alert("Error initiating table!");
     }
 }
+
 async function divideJobBoard() {
     const response = await fetch("/divide-jobboard", {
         method: 'GET'
@@ -135,6 +136,7 @@ async function divideJobBoard() {
         messageElement.textContent = "Error finding Student";
     }
 }
+
 async function insertApplication(event) {
     event.preventDefault();
 
@@ -153,7 +155,7 @@ async function insertApplication(event) {
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('DivideResultMsg');
+    const messageElement = document.getElementById('insertApplicationResultMsg');
 
     if (responseData.success) {
         messageElement.textContent = "Data inserted successfully!";
@@ -162,6 +164,7 @@ async function insertApplication(event) {
         messageElement.textContent = "Error inserting data!";
     }
 }
+
 // Inserts new job posting into the job board
 async function insertJobBoard(event) {
     event.preventDefault();
@@ -220,7 +223,7 @@ async function insertJobBoard(event) {
 }
 
 // helper function used to find index of key-value pair in an object
-function findIndexOfObject(nameToAttr, name) {
+function findIndexInObject(nameToAttr, name) {
     for (let i=0; i<Object.keys(nameToAttr).length; ++i) {
         if (Object.keys(nameToAttr)[i] === name) {
             return i;
@@ -230,7 +233,7 @@ function findIndexOfObject(nameToAttr, name) {
     return -1;
 }
 
-// user can project a column in the job board by inputting the column name
+// user can project columns in the job board by inputting column names
 async function filterJobBoard(event) {
     event.preventDefault();
 
@@ -247,28 +250,31 @@ async function filterJobBoard(event) {
 
     const columnInput = document.getElementById('insertFilter').value.toLowerCase();
     const messageElement = document.getElementById('filterResultMsg');
-    const array = columnInput.split(',');
-    const columnIndex = new Set();
-    for (let i = 0; i < array.length;i++){
-        columnIndex.add(findIndexOfObject(nameToAttr, array[i].trim()));
-        array[i] = nameToAttr[array[i].trim()];
+    const columnArray = columnInput.split(','); // splitting columnInput at commas and turning into array
+    const columnIndex = new Set(); // set of all column indexes (ex. according to nameToAttr, "deadline" has index 3)
+
+    for (let i = 0; i < columnArray.length;i++){
+        columnIndex.add(findIndexInObject(nameToAttr, columnArray[i].trim())); // trim() gets rid of leading and trailing white space
+        columnArray[i] = nameToAttr[columnArray[i].trim()]; // converting name to attribute name counterpart (ex id -> PostingID)
     }
-    if (columnIndex.has(-1)) {
+
+    if (columnIndex.has(-1)) { // -1 means invalid column name
         messageElement.textContent = "Error filtering!";
         return; // no need to continue
     }
-    const title = document.getElementById('title');
-    let body = array.toString();
-    console.log('Sending columnName:', body);
+
+    let columnString = columnArray.toString();
     const response = await fetch('/filter-jobboard', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            columnName: body// i confirmed that body is the correct string, but when its sent its undefined
+            columnNames: columnString
         })
     });
+
+    // code below is similar to fetchAndDisplayApplications()
 
     const responseData = await response.json();
     const filteredJobBoardContent = responseData.data;
@@ -410,7 +416,7 @@ window.onload = function() {
     document.getElementById("joinQuery").addEventListener("click", fetchAndDisplayJoin);
 };
 
-// General function to refresh the displayed table data. 
+// General function to refresh the displayed table data.
 // You can invoke this after any table-modifying operation to keep consistency.
 function fetchTableData() {
     fetchAndDisplayPostings();
