@@ -37,11 +37,32 @@ async function checkDbConnection() {
 }
 
 // Fetches data from the job board and displays it
-async function fetchAndDisplayUsers() {
-    const tableElement = document.getElementById('jobBoard');
-    const tableBody = tableElement.querySelector('tbody');
-
+async function fetchAndDisplayPostings() {
+    const tableBody = document.getElementById('jobBoardBody');
     const response = await fetch('/jobboard', {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const jobBoardContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    jobBoardContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
+async function fetchAndDisplayUsers() {
+    const tableBody = document.getElementById('studentsBoardBody');
+
+    const response = await fetch('/studentsBoard', {
         method: 'GET'
     });
 
@@ -296,5 +317,6 @@ window.onload = function() {
 // General function to refresh the displayed table data. 
 // You can invoke this after any table-modifying operation to keep consistency.
 function fetchTableData() {
-    fetchAndDisplayUsers();
+    fetchAndDisplayPostings();
+    fetchAndDisplayUsers()
 }

@@ -52,7 +52,7 @@ CREATE TABLE AdvisedStudentAccesses(
     StudentID INTEGER PRIMARY KEY,
     Name CHAR(20),
     Email CHAR(20) UNIQUE,
-    Year INTEGER,
+    Standing INTEGER,
     nApplications INTEGER,
     BoardTitle VARCHAR(50) NOT NULL,
     AdvisorID INTEGER NOT NULL,
@@ -159,15 +159,15 @@ VALUES (4, 'Advisor 4', 'advisor4@western.ca', 'Dept 4', 'Western', 'abcdef');
 INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
 VALUES (5, 'Advisor 5', 'advisor5@uoft.ca', 'Dept 5', 'UofT', 'uvwxyz');
 
-INSERT INTO AdvisedStudentAccesses(StudentID, Name, Email, Year, nApplications, BoardTitle, AdvisorID)
+INSERT INTO AdvisedStudentAccesses(StudentID, Name, Email, Standing, nApplications, BoardTitle, AdvisorID)
 VALUES (1, 'Student 1', 'student1@ubc.ca', 3, 10, 'Board 1', 1);
-INSERT INTO AdvisedStudentAccesses(StudentID, Name, Email, Year, nApplications, BoardTitle, AdvisorID)
+INSERT INTO AdvisedStudentAccesses(StudentID, Name, Email, Standing, nApplications, BoardTitle, AdvisorID)
 VALUES (2, 'Student 2', 'student2@waterloo.ca', 2, 15, 'Board 1', 2);
-INSERT INTO AdvisedStudentAccesses(StudentID, Name, Email, Year, nApplications, BoardTitle, AdvisorID)
+INSERT INTO AdvisedStudentAccesses(StudentID, Name, Email, Standing, nApplications, BoardTitle, AdvisorID)
 VALUES (3, 'Student 3', 'student3@sfu.ca', 3, 12, 'Board 1', 3);
-INSERT INTO AdvisedStudentAccesses(StudentID, Name, Email, Year, nApplications, BoardTitle, AdvisorID)
+INSERT INTO AdvisedStudentAccesses(StudentID, Name, Email, Standing, nApplications, BoardTitle, AdvisorID)
 VALUES (4, 'Student 4', 'student4@western.ca', 4, 20, 'Board 2', 4);
-INSERT INTO AdvisedStudentAccesses(StudentID, Name, Email, Year, nApplications, BoardTitle, AdvisorID)
+INSERT INTO AdvisedStudentAccesses(StudentID, Name, Email, Standing, nApplications, BoardTitle, AdvisorID)
 VALUES (5, 'Student 5', 'student5@uoft.ca', 2, 1, 'Board 2', 5);
 
 INSERT INTO SubmitsApplication(StudentID, ApplicationID, TimeSubmitted) VALUES (1, 101, TO_TIMESTAMP('2023-10-20 09:30:00', 'YYYY-MM-DD HH24:MI:SS'));
