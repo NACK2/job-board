@@ -244,6 +244,7 @@ async function countJobBoard() {
         return -1;
     });
 }
+
 module.exports = {
     testOracleConnection,
     fetchJobBoardFromDb,

@@ -127,21 +127,9 @@ async function divideJobBoard() {
     const responseData = await response.json();
 
     if (responseData.success) {
-        const tableBody = document.getElementById('DivideBoardBody');
-        const jobBoardContent = responseData.data;
-
-        // Always clear old, already fetched data before new fetching process.
-        if (tableBody) {
-            tableBody.innerHTML = '';
-        }
-
-        jobBoardContent.forEach(user => {
-            const row = tableBody.insertRow();
-            user.forEach((field, index) => {
-                const cell = row.insertCell(index);
-                cell.textContent = field;
-            });
-        });
+        const messageElement = document.getElementById('DivideResultMsg');
+        messageElement.textContent = "Student Successfully found";
+        fetchTableData();
     } else {
         const messageElement = document.getElementById('DivideResultMsg');
         messageElement.textContent = "Error finding Student";
