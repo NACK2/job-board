@@ -39,7 +39,6 @@ router.post("/insert-jobboard", async (req, res) => {
     }
 });
 
-// WIP
 router.post('/filter-jobboard', async (req, res) => {
     const { columnName } = req.body;
     const tableContent = await appService.filterJobBoard(columnName);

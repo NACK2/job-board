@@ -135,23 +135,72 @@ async function insertJobBoard(event) {
     }
 }
 
-// WIP
-async function filterJobBoard() {
-    const columnInput = document.getElementById('filterInput').value;
-    const response = await fetch("/filter-jobboard", {
+// helper function used to find index of key-value pair in an object
+function findIndexOfObject(nameToAttr, name) {
+    for (let i=0; i<Object.keys(nameToAttr).length; ++i) {
+        if (Object.keys(nameToAttr)[i] === name) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+async function filterJobBoard(event) {
+    event.preventDefault();
+
+    // user will input the name of the column they see on the website, converting it to attribute name counterpart
+    const nameToAttr = {
+        "ID": "PostingID",
+        "Company": "CompanyName",
+        "Position": "Position",
+        "Deadline": "Deadline",
+        "Term": "Term",
+        "Duration": "Duration",
+        "Date Posted": "DatePosted"
+    }
+
+    const columnInput = document.getElementById('insertFilter').value;
+    const messageElement = document.getElementById('filterResultMsg');
+
+    let columnIndex = findIndexOfObject(nameToAttr, columnInput); // returns index of columnInput within nameToAttr
+    if (columnIndex === -1) { // columnInput is not valid bc doesnt exist in nameToAttr
+        messageElement.textContent = "Error filtering!";
+        return; // no need to continue
+    }
+
+    const response = await fetch('/filter-jobboard', {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
-            columnName: columnInput,
+            columnName: nameToAttr[columnInput] // sending the attribute name
         })
     });
-    const responseData = await response.json();
 
-    const messageElement = document.getElementById('filterResultMsg');
-    if (responseData.success) {
-        messageElement.textContent = "filtered successfully!";
-        fetchTableData();
-    } else {
-        messageElement.textContent = "Error filtering table!";
+    const responseData = await response.json();
+    const filteredJobBoardContent = responseData.data;
+    messageElement.textContent = "Filtered successfully!";
+
+    const tableElement = document.getElementById('jobBoard');
+    const tableBody = tableElement.querySelector('tbody');
+
+    // Always clear old, already fetched data before new fetching process
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    // in the table every column will be blank except for the column we want
+    // the column we want will be filled with the proper data
+    for (let r=0; r<filteredJobBoardContent.length; ++r) {
+        const row = tableBody.insertRow();
+        for (let c=0; c<7; ++c) {
+            const cell = row.insertCell(c);
+            if (c === columnIndex) {
+                cell.textContent = filteredJobBoardContent[r];
+            }
+        }
     }
 }
 
@@ -166,7 +215,7 @@ async function removeIDJobBoard(event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            removeID: idToFind,
+            removeID: idToFind
         })
     });
 
@@ -237,7 +286,7 @@ window.onload = function() {
     fetchTableData();
     document.getElementById("resetBtn").addEventListener("click", resetJobBoard);
     document.getElementById("insertJobBoard").addEventListener("submit", insertJobBoard);
-    document.getElementById("filterBtn").addEventListener("submit", filterJobBoard);
+    document.getElementById("filterJobBoard").addEventListener("submit", filterJobBoard);
     document.getElementById("removeIDJobBoard").addEventListener("submit", removeIDJobBoard);
     document.getElementById("updatePositionJobBoard").addEventListener("submit", updatePositionJobBoard);
     document.getElementById("countJobBoard").addEventListener("click", countJobBoard);
