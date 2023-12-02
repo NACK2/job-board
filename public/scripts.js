@@ -289,7 +289,7 @@ async function filterJobBoard(event) {
         for (let c=0; c<7; ++c) {
             const cell = row.insertCell(c);
             if (columnIndex.has(c)) {
-                cell.textContent = filteredJobBoardContent[r];
+                 cell.textContent = filteredJobBoardContent[r];
             }
         }
     }
