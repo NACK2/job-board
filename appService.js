@@ -246,6 +246,23 @@ async function countJobBoard() {
     });
 }
 
+async function fetchJoinBoardFromDb() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT s.StudentID, s.Name, s.nApplications
+             FROM JobPostingOfferedPosted j, ApplyTo a, AdvisedStudentAccesses s
+             WHERE j.PostingID = :postingID
+             AND j.PostingID = a.PostingID
+             AND a.StudentID = s.StudentID`,
+            [postingID]
+        );
+
+        return result.rows;
+    }).catch(() => {
+        return [];
+    })
+}
+
 module.exports = {
     testOracleConnection,
     fetchJobBoardFromDb,
@@ -258,5 +275,6 @@ module.exports = {
     fetchStudentsBoardFromDb,
     fetchApplicationsBoardFromDb,
     fetchDivideBoardFromDb,
-    insertApplication
+    insertApplication,
+    fetchJoinBoardFromDb
 };

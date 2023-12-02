@@ -368,6 +368,30 @@ async function countJobBoard() {
     }
 }
 
+async function fetchAndDisplayJoin() {
+    const tableBody = document.getElementById('joinQueryTableBody');
+
+    const response = await fetch('/join-jobboard', {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const jobBoardContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    jobBoardContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
+
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
@@ -383,6 +407,7 @@ window.onload = function() {
     document.getElementById("removeIDJobBoard").addEventListener("submit", removeIDJobBoard);
     document.getElementById("updatePositionJobBoard").addEventListener("submit", updatePositionJobBoard);
     document.getElementById("countJobBoard").addEventListener("click", countJobBoard);
+    document.getElementById("joinQuery").addEventListener("click", fetchAndDisplayJoin);
 };
 
 // General function to refresh the displayed table data. 

@@ -96,6 +96,33 @@
     <div id="DivideResultMsg"></div>
     <br><hr><br> <!-- ========================================================================= -->
 
+    <h1>TODO</h1>
+    <h2>Find Students' information who applied to a specific Job</h2>
+
+    <form id="joinQuery">
+        PostingID: <input type="number" id="findPostingID" placeholder="Enter postingID" required> <br><br>
+        <button type="submit">Search</button> <br>
+    </form>
+
+    <h4>Students who applied to the specified postingID</h4>
+    <table id="joinQueryTable" border="1">
+        <thread>
+            <tr>
+                <th>StudentID</th>
+                <th>Name</th>
+                <th>NApplications</th>
+            </tr>
+        </thread>
+        <tbody id="joinQueryTableBody">
+        <!--        results        -->
+        </tbody>
+    </table>
+
+    <!-- A placeholder to display messages related to the joinQuery operation. -->
+    <div id="joinQueryResultMessage"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
     <h2>Reset Job Board</h2>
     <p>If you wish to reset the table press on the reset button. If this is the first time you're running this page, you MUST use reset</p>
     <button id="resetBtn"> Reset </button> <br>
