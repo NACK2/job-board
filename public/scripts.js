@@ -247,20 +247,26 @@ async function filterJobBoard(event) {
 
     const columnInput = document.getElementById('insertFilter').value.toLowerCase();
     const messageElement = document.getElementById('filterResultMsg');
-
-    let columnIndex = findIndexOfObject(nameToAttr, columnInput); // returns index of columnInput within nameToAttr
-    if (columnIndex === -1) { // columnInput is not valid bc doesnt exist in nameToAttr
+    const array = columnInput.split(',');
+    const columnIndex = new Set();
+    for (let i = 0; i < array.length;i++){
+        columnIndex.add(findIndexOfObject(nameToAttr, array[i].trim()));
+        array[i] = nameToAttr[array[i].trim()];
+    }
+    if (columnIndex.has(-1)) {
         messageElement.textContent = "Error filtering!";
         return; // no need to continue
     }
-
+    const title = document.getElementById('title');
+    let body = array.toString();
+    console.log('Sending columnName:', body);
     const response = await fetch('/filter-jobboard', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            columnName: nameToAttr[columnInput] // sending the attribute name
+            columnName: body// i confirmed that body is the correct string, but when its sent its undefined
         })
     });
 
@@ -282,7 +288,7 @@ async function filterJobBoard(event) {
         const row = tableBody.insertRow();
         for (let c=0; c<7; ++c) {
             const cell = row.insertCell(c);
-            if (c === columnIndex) {
+            if (columnIndex.has(c)) {
                 cell.textContent = filteredJobBoardContent[r];
             }
         }

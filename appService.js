@@ -134,6 +134,7 @@ async function insertApplication(studentID,postingID) {
 
 async function filterJobBoard(columnName) {
     return await withOracleDB(async (connection) => {
+        console.log(columnName);
         const result = await connection.execute(
                 `SELECT ${columnName} FROM JOBPOSTINGOFFEREDPOSTED`
         );

@@ -28,7 +28,7 @@
 
     <!-- Show 'Coop Job Board'.
         Data will be fetched and inserted here dynamically using JavaScript. -->
-    <h2>Coop Job Board</h2>
+    <h2 id  = "title">Coop Job Board</h2>
     <table id="jobBoard" border="1">
         <thead>
             <tr>
@@ -139,9 +139,9 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
-    <h2> Filter Jobs (Input is NOT case sensitive) </h2>
+    <h2> Filter Jobs (Please enter it as a comma separated list) </h2>
     <form id="filterJobBoard">
-        What column would you like to filter on?: <input type="text" id="insertFilter" placeholder="eg. Company"> <br><br>
+        What column would you like to filter on?: <input type="text" id="insertFilter" placeholder="Company, Position"> <br><br>
 
         <button type="submit"> Filter </button> <br>
     </form>
