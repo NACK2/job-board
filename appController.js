@@ -23,6 +23,10 @@ router.get('/studentsBoard', async (req, res) => {
     const tableContent = await appService.fetchStudentsBoardFromDb();
     res.json({data: tableContent});
 });
+router.get('/applicationsboard', async (req, res) => {
+    const tableContent = await appService.fetchApplicationsBoardFromDb();
+    res.json({data: tableContent});
+});
 
 router.post("/initiate-jobboard", async (req, res) => {
     const initiateResult = await appService.initiateJobBoard();

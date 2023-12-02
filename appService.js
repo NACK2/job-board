@@ -63,7 +63,16 @@ async function fetchStudentsBoardFromDb() {
         return [];
     });
 }
-
+async function fetchApplicationsBoardFromDb() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT STUDENTID,POSTINGID
+            FROM APPLYTO`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
 async function initiateJobBoard() {
     return await withOracleDB(async (connection) => {
         try {
@@ -214,5 +223,6 @@ module.exports = {
     removeIDJobBoard,
     updatePositionJobBoard,
     countJobBoard,
-    fetchStudentsBoardFromDb
+    fetchStudentsBoardFromDb,
+    fetchApplicationsBoardFromDb
 };

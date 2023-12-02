@@ -59,6 +59,28 @@ async function fetchAndDisplayPostings() {
         });
     });
 }
+async function fetchAndDisplayApplications() {
+    const tableBody = document.getElementById('ApplicationsBoardBody');
+    const response = await fetch('/applicationsboard', {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const jobBoardContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    jobBoardContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
 async function fetchAndDisplayUsers() {
     const tableBody = document.getElementById('studentsBoardBody');
 
@@ -318,5 +340,6 @@ window.onload = function() {
 // You can invoke this after any table-modifying operation to keep consistency.
 function fetchTableData() {
     fetchAndDisplayPostings();
-    fetchAndDisplayUsers()
+    fetchAndDisplayUsers();
+    fetchAndDisplayApplications();
 }
