@@ -106,7 +106,7 @@ async function insertJobBoard(event) {
     }
 
     // gives todays date; when a user inserts a job posting, todays date will automatically be used as the job posted date
-    const currentDate = new Date().toDateString();
+    const currentDate = new Date().toJSON().slice(0, 10); // slicing because after 10th index is time stamp
 
     const response = await fetch('/insert-jobboard', {
         method: 'POST',
@@ -181,26 +181,26 @@ async function removeIDJobBoard(event) {
     }
 }
 
-// Updates names in the job board
-async function updatePositionDetail(event) {
+// Updates positions using an ID in the job board
+async function updatePositionJobBoard(event) {
     event.preventDefault();
 
-    const targetID = document.getElementById('targetID').value;
-    const newNameValue = document.getElementById('updateNewPositionDetails').value;
+    const idValue = document.getElementById('targetID').value;
+    const updatePositionValue = document.getElementById('insertUpdatePosition').value;
 
-    const response = await fetch('/update-name-jobpostingofferedposted', {
+    const response = await fetch('/update-position-jobboard', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            targetID: parseInt(targetID),
-            newName: newNameValue
+            targetID: idValue,
+            newPosition: updatePositionValue
         })
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('updateNameResultMsg');
+    const messageElement = document.getElementById('updatePositionResultMsg');
 
     if (responseData.success) {
         messageElement.textContent = "Name updated successfully!";
@@ -239,7 +239,7 @@ window.onload = function() {
     document.getElementById("insertJobBoard").addEventListener("submit", insertJobBoard);
     document.getElementById("filterBtn").addEventListener("submit", filterJobBoard);
     document.getElementById("removeIDJobBoard").addEventListener("submit", removeIDJobBoard);
-    document.getElementById("updatePositionDetails").addEventListener("submit", updatePositionDetail);
+    document.getElementById("updatePositionJobBoard").addEventListener("submit", updatePositionJobBoard);
     document.getElementById("countJobBoard").addEventListener("click", countJobBoard);
 };
 

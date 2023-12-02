@@ -91,7 +91,7 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
-    <h2>Filter Jobs</h2>
+    <h2>Filter Jobs (WIP) </h2>
     <form id="filterBtn">
         What column would you like to filter on? : <input type="text" id="filterInput" placeholder="eg. Company"> <br><br>
 
@@ -115,16 +115,16 @@
 
 
 
-    <h2>Update Position Details</h2>
+    <h2>Update Position</h2>
     <p>The values are case sensitive and if you enter in the wrong case, the update statement will not do anything.</p>
-    <form id="updataPositionDetails">
-        Target ID: <input type="text" id="targetID" placeholder="Enter target ID" required inputmode="numeric"> <br><br>
-        Update Position Details: <input type="text" id="updatePositionDetails" placeholder="Enter New Position Details"> <br><br>
+    <form id="updatePositionJobBoard">
+        Target ID: <input type="number" id="targetID" placeholder="Enter target ID" required> <br><br>
+        Update Position Details: <input type="text" id="insertUpdatePosition" placeholder="Enter New Position"> <br><br>
 
         <button type="submit"> Update </button> <br>
     </form>
     <!-- A placeholder to display messages related to the update operation. -->
-    <div id="updateNameResultMsg"></div>
+    <div id="updatePositionResultMsg"></div>
 
     <br><hr><br> <!-- ========================================================================= -->
 

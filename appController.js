@@ -57,9 +57,9 @@ router.post("/remove-id-jobboard", async (req, res) => {
     }
 });
 
-router.post("/update-name-jobpostingofferedposted", async (req, res) => {
-    const { targetID, newName } = req.body;
-    const updateResult = await appService.updateNamejobpostingofferedposted(targetID, newName);
+router.post("/update-position-jobboard", async (req, res) => {
+    const { targetID, newPosition } = req.body;
+    const updateResult = await appService.updatePositionJobBoard(targetID, newPosition);
     if (updateResult) {
         res.json({ success: true });
     } else {
