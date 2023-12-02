@@ -146,21 +146,22 @@ function findIndexOfObject(nameToAttr, name) {
     return -1;
 }
 
+// user can project a column in the job board by inputting the column name
 async function filterJobBoard(event) {
     event.preventDefault();
 
     // user will input the name of the column they see on the website, converting it to attribute name counterpart
     const nameToAttr = {
-        "ID": "PostingID",
-        "Company": "CompanyName",
-        "Position": "Position",
-        "Deadline": "Deadline",
-        "Term": "Term",
-        "Duration": "Duration",
-        "Date Posted": "DatePosted"
+        "id": "PostingID",
+        "company": "CompanyName",
+        "position": "Position",
+        "deadline": "Deadline",
+        "term": "Term",
+        "duration": "Duration",
+        "date posted": "DatePosted"
     }
 
-    const columnInput = document.getElementById('insertFilter').value;
+    const columnInput = document.getElementById('insertFilter').value.toLowerCase();
     const messageElement = document.getElementById('filterResultMsg');
 
     let columnIndex = findIndexOfObject(nameToAttr, columnInput); // returns index of columnInput within nameToAttr
