@@ -61,7 +61,6 @@ router.post("/insert-application", async (req, res) => {
 
 router.post('/filter-jobboard', async (req, res) => {
     const { columnNames } = req.body;
-    console.log('Received columnName:', columnNames);
     const tableContent = await appService.filterJobBoard(columnNames);
     res.json({data: tableContent});
 });

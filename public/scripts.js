@@ -292,10 +292,14 @@ async function filterJobBoard(event) {
     // the column we want will be filled with the proper data
     for (let r=0; r<filteredJobBoardContent.length; ++r) {
         const row = tableBody.insertRow();
+        let i = 0;
         for (let c=0; c<7; ++c) {
             const cell = row.insertCell(c);
             if (columnIndex.has(c)) {
-                 cell.textContent = filteredJobBoardContent[r];
+                // jobBoardContent returns the columns requested eg. if we want Company and Position, it returns
+                // [["Company 1", Position 1"], ["Company 2", Position 2"]]
+                 cell.textContent = filteredJobBoardContent[r][i];
+                 ++i;
             }
         }
     }
