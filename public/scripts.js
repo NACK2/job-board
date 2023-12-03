@@ -521,6 +521,8 @@ window.onload = function() {
     document.getElementById("countJobBoard").addEventListener("click", countJobBoard);
     document.getElementById("joinSearch").addEventListener("click", fetchAndDisplayJoin);
     document.getElementById("countAvgApps").addEventListener("click", fetchAndDisplayNested);
+    document.getElementById("countHavingJobsTableBody").addEventListener("submit", countHavingJobBoard);
+
 };
 
 // General function to refresh the displayed table data.

@@ -93,6 +93,7 @@ router.get('/count-jobboard', async (req, res) => {
 router.post('/countHaving-jobboard', async (req, res) => {
     const { months } = req.body;
     const tableContent = await appService.countHavingJobBoard(months);
+    console.log(tableContent)
     res.json({data: tableContent});
 });
 router.post('/join-jobboard', async (req, res) => {
