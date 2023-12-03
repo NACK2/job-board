@@ -319,8 +319,7 @@ async function filterJobBoard(event) {
     const filteredJobBoardContent = responseData.data;
     messageElement.textContent = "Filtered successfully!";
 
-    const tableElement = document.getElementById('jobBoard');
-    const tableBody = tableElement.querySelector('tbody');
+    const tableBody = document.getElementById('jobBoardBody');
 
     // Always clear old, already fetched data before new fetching process
     if (tableBody) {
@@ -477,19 +476,23 @@ async function fetchAndDisplayJoin() {
     });
 }
 
-async function countHavingJobBoard() {
-    const months = document.getElementById('durationMonths').value;
-    const response = await fetch("/countHaving-jobboard", {
+async function countHavingJobBoard(event) {
+    event.preventDefault(); // lets not forget this ever again ^_^
+
+    const monthsInput = document.getElementById('durationMonths').value;
+    const response = await fetch("/counthaving-jobboard", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            months: months
+            months: monthsInput
         })
     });
+
     const responseData = await response.json();
     const jobBoardContent = responseData.data;
+
     const tableBody = document.getElementById('countHavingJobsTableBody');
     // Always clear old, already fetched data before new fetching process.
     if (tableBody) {
@@ -504,6 +507,7 @@ async function countHavingJobBoard() {
         });
     });
 }
+
 async function fetchAndDisplayAdvisors() {
     const tableBody = document.getElementById('AdvisorsBoardBody');
 
@@ -580,8 +584,7 @@ window.onload = function() {
     document.getElementById("countJobBoard").addEventListener("click", countJobBoard);
     document.getElementById("joinSearch").addEventListener("click", fetchAndDisplayJoin);
     document.getElementById("countAvgApps").addEventListener("click", fetchAndDisplayNested);
-    document.getElementById("countHavingJobsTableBody").addEventListener("submit", countHavingJobBoard);
-
+    document.getElementById("countHavingJobBoard").addEventListener("submit", countHavingJobBoard);
 };
 
 // General function to refresh the displayed table data.
