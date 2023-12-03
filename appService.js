@@ -86,7 +86,6 @@ async function fetchDivideBoardFromDb() {
                  FROM ApplyTo AP
                  WHERE AP.StudentID = A.StudentID)
                        )`);
-        console.log(result);
         return result.rows;
     }).catch(() => {
         return [];

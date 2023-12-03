@@ -126,26 +126,20 @@ async function divideJobBoard() {
         method: 'GET'
     });
     const responseData = await response.json();
-
-    if (responseData.success) {
-        const jobBoardContent = responseData.data;
-        const tableBody = document.getElementById('DivideBoardBody');
-        // Always clear old, already fetched data before new fetching process.
-        if (tableBody) {
-            tableBody.innerHTML = '';
-        }
-
-        jobBoardContent.forEach(user => {
-            const row = tableBody.insertRow();
-            user.forEach((field, index) => {
-                const cell = row.insertCell(index);
-                cell.textContent = field;
-            });
-        });
-    } else {
-        const messageElement = document.getElementById('DivideResultMsg');
-        messageElement.textContent = "Error finding Student";
+    const jobBoardContent = responseData.data;
+    const tableBody = document.getElementById('DivideBoardBody');
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
     }
+
+    jobBoardContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
 }
 
 async function insertApplication(event) {
