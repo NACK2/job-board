@@ -130,13 +130,15 @@ INSERT INTO Location(PostalCode, City) VALUES ('987654', 'Burnaby');
 INSERT INTO Location(PostalCode, City) VALUES ('abcdef', 'London');
 INSERT INTO Location(PostalCode, City) VALUES ('uvwxyz', 'Toronto');
 
-INSERT INTO University(UniversityName, PostalCode) VALUES ('UBC', '123456');
+-- INSERT INTO University(UniversityName, PostalCode) VALUES ('UBC', '123456');
+INSERT INTO University(UniversityName, PostalCode) VALUES ('UBC', 'V6T1Z4');
 INSERT INTO University(UniversityName, PostalCode) VALUES ('Waterloo', '654321');
 INSERT INTO University(UniversityName, PostalCode) VALUES ('SFU', '987654');
 INSERT INTO University(UniversityName, PostalCode) VALUES ('Western', 'abcdef');
 INSERT INTO University(UniversityName, PostalCode) VALUES ('UofT', 'uvwxyz');
 
-INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Dept 1', 700, 'UBC', '123456');
+-- INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Dept 1', 700, 'UBC', '123456');
+INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Dept 1', 700, 'UBC', 'V6T1Z4');
 INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Dept 2', 500, 'Waterloo', '654321');
 INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Dept 3', 550, 'SFU', '987654');
 INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Dept 4', 200, 'Western', 'abcdef');
@@ -148,16 +150,27 @@ INSERT INTO JobBoard(BoardTitle) VALUES ('Board 3');
 INSERT INTO JobBoard(BoardTitle) VALUES ('Board 4');
 INSERT INTO JobBoard(BoardTitle) VALUES ('Board 5');
 
+-- INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
+-- VALUES (1, 'Advisor 1', 'advisor1@ubc.ca', 'Dept 1', 'UBC', '123456');
+-- INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
+-- VALUES (2, 'Advisor 2', 'advisor2@waterloo.ca', 'Dept 2', 'Waterloo', '654321');
+-- INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
+-- VALUES (3, 'Advisor 3', 'advisor3@sfu.ca', 'Dept 3', 'SFU', '987654');
+-- INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
+-- VALUES (4, 'Advisor 4', 'advisor4@western.ca', 'Dept 4', 'Western', 'abcdef');
+-- INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
+-- VALUES (5, 'Advisor 5', 'advisor5@uoft.ca', 'Dept 5', 'UofT', 'uvwxyz');
+
 INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
-VALUES (1, 'Advisor 1', 'advisor1@ubc.ca', 'Dept 1', 'UBC', '123456');
+VALUES (1, 'Advisor 1', 'advisor1@ubc.ca', 'Computer Science', 'UBC', 'V6T1Z4');
 INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
-VALUES (2, 'Advisor 2', 'advisor2@waterloo.ca', 'Dept 2', 'Waterloo', '654321');
+VALUES (2, 'Advisor 2', 'advisor2@ubc.ca', 'Computer Science', 'UBC', 'V6T1Z4');
 INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
-VALUES (3, 'Advisor 3', 'advisor3@sfu.ca', 'Dept 3', 'SFU', '987654');
+VALUES (3, 'Advisor 3', 'advisor3@ubc.ca', 'Computer Science', 'UBC', 'V6T1Z4');
 INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
-VALUES (4, 'Advisor 4', 'advisor4@western.ca', 'Dept 4', 'Western', 'abcdef');
+VALUES (4, 'Advisor 4', 'advisor4@ubc.ca', 'Statistics', 'UBC', 'V6T1Z4');
 INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
-VALUES (5, 'Advisor 5', 'advisor5@uoft.ca', 'Dept 5', 'UofT', 'uvwxyz');
+VALUES (5, 'Advisor 5', 'advisor5@ubc.ca', 'Statistics', 'UBC', 'V6T1Z4');
 
 INSERT INTO AdvisedStudentAccesses(StudentID, Name, Email, Standing, nApplications, BoardTitle, AdvisorID)
 VALUES (1, 'Student 1', 'student1@ubc.ca', 3, 10, 'Board 1', 1);
