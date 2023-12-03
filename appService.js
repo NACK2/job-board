@@ -118,6 +118,19 @@ async function insertJobBoard(id, company, position, deadline, term, duration, d
         return false;
     });
 }
+async function insertStudent(studentid, name, email, standing, napplications,boardtitle, advisorid) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `INSERT INTO ADVISEDSTUDENTACCESSES (studentid, name, email, standing, napplications,boardtitle, advisorid) VALUES (:studentid, :name, :email, :standing, :napplications,:boardtitle, :advisorid)`,
+            [studentid, name, email, standing, napplications,boardtitle, advisorid],
+            { autoCommit: true }
+        );
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
 async function insertApplication(studentID,postingID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -253,5 +266,6 @@ module.exports = {
     fetchJoinBoardFromDb,
     countHavingJobBoard,
     fetchAdvisorsBoardFromDb,
-    countNestedGroup
+    countNestedGroup,
+    insertStudent
 };

@@ -49,6 +49,15 @@ router.post("/insert-jobboard", async (req, res) => {
         res.status(500).json({ success: false });
     }
 });
+router.post("/insert-student", async (req, res) => {
+    const { studentid, name, email, standing, napplications, advisorid} = req.body;
+    const insertResult = await appService.insertStudent(studentid, name, email, standing, napplications,"Board 1", advisorid);
+    if (insertResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
 router.post("/insert-application", async (req, res) => {
     const { studentid,postingid} = req.body;
     const insertResult = await appService.insertApplication(studentid,postingid);

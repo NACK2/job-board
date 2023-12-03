@@ -169,6 +169,40 @@ async function insertApplication(event) {
         messageElement.textContent = "Error inserting data!";
     }
 }
+async function insertStudent(event) {
+    event.preventDefault();
+
+    const studentid = document.getElementById('updateStudentID').value;
+    const name = document.getElementById('updateStudentName').value;
+    const email = document.getElementById('updateStudentEmail').value;
+    const standing = document.getElementById('updateStudentStanding').value;
+    const napplications = document.getElementById('updateStudentNapplications').value;
+    const advisorid= document.getElementById('updateStudentAdvisorID').value;
+    const response = await fetch('/insert-student', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            studentid: studentid,
+            name: name,
+            email: email,
+            standing: standing,
+            napplications: napplications,
+            advisorid:advisorid
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('insertStudentResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Data inserted successfully!";
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error inserting data!";
+    }
+}
 
 // Inserts new job posting into the job board
 async function insertJobBoard(event) {
@@ -539,6 +573,7 @@ window.onload = function() {
     document.getElementById("Divide").addEventListener("click", divideJobBoard);
     document.getElementById("insertApplication").addEventListener("submit", insertApplication);
     document.getElementById("insertJobBoard").addEventListener("submit", insertJobBoard);
+    document.getElementById("insertStudent").addEventListener("submit", insertStudent);
     document.getElementById("filterJobBoard").addEventListener("submit", filterJobBoard);
     document.getElementById("removeIDJobBoard").addEventListener("submit", removeIDJobBoard);
     document.getElementById("updateJobBoard").addEventListener("submit", updateJobBoard);
