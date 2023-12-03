@@ -226,7 +226,10 @@ async function countNestedGroup() {
                  FROM EmployedCoopAdvisor a2, AdvisedStudentAccesses s2
                  WHERE a2.AdvisorID = s2.AdvisorID
                  GROUP BY a2.DeptName
-                 HAVING COUNT(DISTINCT s2.StudentID) >= 2`);
+                 HAVING COUNT(DISTINCT s2.StudentID) >= 2
+             )
+             GROUP BY a.DeptName`);
+
         return result.rows;
     }).catch(() => {
         return [];
