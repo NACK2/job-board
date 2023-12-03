@@ -513,7 +513,7 @@ window.onload = function() {
     fetchTableData();
     document.getElementById("resetBtn").addEventListener("click", resetJobBoard);
     document.getElementById("Divide").addEventListener("click", divideJobBoard);
-    document.getElementById("insertApplication").addEventListener("click", insertApplication);
+    document.getElementById("insertApplication").addEventListener("submit", insertApplication);
     document.getElementById("insertJobBoard").addEventListener("submit", insertJobBoard);
     document.getElementById("filterJobBoard").addEventListener("submit", filterJobBoard);
     document.getElementById("removeIDJobBoard").addEventListener("submit", removeIDJobBoard);
