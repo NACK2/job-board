@@ -207,11 +207,21 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
-    <h2>Count the number of job postings in the Job Board</h2>
+    <h2>Count how many Jobs are being Offfered by Each Company</h2>
     <button id="countJobBoard"> Count </button> <br><br>
     <!-- A placeholder to display the count result. -->
     <div id="countResultMsg"></div> <br>
-
+    <table id="countJobsTable" border="1">
+        <thead>
+        <tr>
+            <th>Company</th>
+            <th>Jobs Offered</th>
+        </tr>
+        </thead>
+        <tbody id="countJobsTableBody">
+        <!--        results        -->
+        </tbody>
+    </table>
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
     <script src="scripts.js"></script>

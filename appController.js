@@ -87,18 +87,8 @@ router.post("/update-position-jobboard", async (req, res) => {
 });
 
 router.get('/count-jobboard', async (req, res) => {
-    const tableCount = await appService.countJobBoard();
-    if (tableCount >= 0) {
-        res.json({
-            success: true,
-            count: tableCount
-        });
-    } else {
-        res.status(500).json({
-            success: false,
-            count: tableCount
-        });
-    }
+    const tableContent = await appService.countJobBoard();
+    res.json({data: tableContent});
 });
 
 router.post('/join-jobboard', async (req, res) => {

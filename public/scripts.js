@@ -373,14 +373,20 @@ async function countJobBoard() {
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('countResultMsg');
-
-    if (responseData.success) {
-        const tupleCount = responseData.count;
-        messageElement.textContent = `The number of job postings in the job board: ${tupleCount}`;
-    } else {
-        alert("Error in count!");
+    const jobBoardContent = responseData.data;
+    const tableBody = document.getElementById('countJobsTableBody');
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
     }
+
+    jobBoardContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
 }
 
 async function fetchAndDisplayJoin() {

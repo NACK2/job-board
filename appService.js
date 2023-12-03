@@ -173,10 +173,10 @@ async function updatePositionJobBoard(targetID, newPosition) {
 
 async function countJobBoard() {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT Count(*) FROM JOBPOSTINGOFFEREDPOSTED');
-        return result.rows[0][0];
+        const result = await connection.execute('SELECT CompanyName, COUNT(*) AS TotalJobsOffered FROM JobPostingOfferedPosted GROUP BY CompanyName');
+        return result.rows;
     }).catch(() => {
-        return -1;
+        return [];
     });
 }
 
