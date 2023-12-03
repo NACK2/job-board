@@ -535,7 +535,7 @@ async function fetchAndDisplayAdvisors() {
 
 async function fetchAndDisplayNested() {
     const response = await fetch("/nestedGroup-jobboard", {
-        method: 'POST'
+        method: 'GET'
     });
 
     const responseData = await response.json();
