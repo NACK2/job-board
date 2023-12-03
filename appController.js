@@ -97,4 +97,9 @@ router.post('/join-jobboard', async (req, res) => {
     res.json({data: result});
 })
 
+router.get('/advisorsboard', async (req, res) => {
+    const tableContent = await appService.fetchAdvisorsBoardFromDb();
+    res.json({data: tableContent});
+});
+
 module.exports = router;

@@ -180,23 +180,6 @@ async function countJobBoard() {
     });
 }
 
-// async function fetchJoinBoardFromDb() {
-//     return await withOracleDB(async (connection) => {
-//         const result = await connection.execute(
-//             `SELECT s.StudentID, s.Name, s.nApplications
-//              FROM JobPostingOfferedPosted j, ApplyTo a, AdvisedStudentAccesses s
-//              WHERE j.PostingID = :postingID
-//              AND j.PostingID = a.PostingID
-//              AND a.StudentID = s.StudentID`,
-//             [postingID]
-//         );
-//
-//         return result.rows;
-//     }).catch(() => {
-//         return [];
-//     })
-// }
-
 async function fetchJoinBoardFromDb(postingID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -205,6 +188,17 @@ async function fetchJoinBoardFromDb(postingID) {
              WHERE j.PostingID = :postingID AND j.PostingID = a.PostingID AND a.StudentID = s.StudentID`,
             { postingID });
 
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function fetchAdvisorsBoardFromDb() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT AdvisorID, AdvisorName, AdvisorEmail, DeptName
+             FROM EMPLOYEDCOOPADVISOR`);
         return result.rows;
     }).catch(() => {
         return [];
@@ -224,5 +218,6 @@ module.exports = {
     fetchApplicationsBoardFromDb,
     fetchDivideBoardFromDb,
     insertApplication,
-    fetchJoinBoardFromDb
+    fetchJoinBoardFromDb,
+    fetchAdvisorsBoardFromDb
 };
