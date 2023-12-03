@@ -188,23 +188,6 @@ async function countHavingJobBoard(months) {
         return [];
     });
 }
-// async function fetchJoinBoardFromDb() {
-//     return await withOracleDB(async (connection) => {
-//         const result = await connection.execute(
-//             `SELECT s.StudentID, s.Name, s.nApplications
-//              FROM JobPostingOfferedPosted j, ApplyTo a, AdvisedStudentAccesses s
-//              WHERE j.PostingID = :postingID
-//              AND j.PostingID = a.PostingID
-//              AND a.StudentID = s.StudentID`,
-//             [postingID]
-//         );
-//
-//         return result.rows;
-//     }).catch(() => {
-//         return [];
-//     })
-// }
-
 
 async function fetchJoinBoardFromDb(postingID) {
     return await withOracleDB(async (connection) => {
@@ -232,6 +215,25 @@ async function fetchAdvisorsBoardFromDb() {
     });
 }
 
+async function countNestedGroup() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT a.DeptName, AVG(s.nApplications)
+             FROM EmployedCoopAdvisor a, AdvisedStudentAccesses s
+             WHERE a.AdvisorID = s.AdvisorID
+               AND a.DeptName IN (
+                 SELECT a2.DeptName
+                 FROM EmployedCoopAdvisor a2, AdvisedStudentAccesses s2
+                 WHERE a2.AdvisorID = s2.AdvisorID
+                 GROUP BY a2.DeptName
+                 HAVING COUNT(DISTINCT s2.StudentID) >= 2`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+
 module.exports = {
     testOracleConnection,
     fetchJobBoardFromDb,
@@ -247,5 +249,6 @@ module.exports = {
     insertApplication,
     fetchJoinBoardFromDb,
     countHavingJobBoard,
-    fetchAdvisorsBoardFromDb
+    fetchAdvisorsBoardFromDb,
+    countNestedGroup
 };

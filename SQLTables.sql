@@ -138,6 +138,7 @@ INSERT INTO University(UniversityName, PostalCode) VALUES ('UofT', 'uvwxyz');
 
 INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Computer Science', 700, 'UBC', 'V6T1Z4');
 INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Statistics', 700, 'UBC', 'V6T1Z4');
+INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Data Science', 700, 'UBC', 'V6T1Z4');
 INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Statistics', 500, 'Waterloo', '654321');
 INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Math', 550, 'SFU', '987654');
 INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Physics', 200, 'Western', 'abcdef');
@@ -161,7 +162,7 @@ INSERT INTO JobBoard(BoardTitle) VALUES ('Board 5');
 -- VALUES (5, 'Advisor 5', 'advisor5@uoft.ca', 'Dept 5', 'UofT', 'uvwxyz');
 
 INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
-VALUES (1, 'Advisor 1', 'advisor1@ubc.ca', 'Computer Science', 'UBC', 'V6T1Z4');
+VALUES (1, 'Advisor 1', 'advisor1@ubc.ca', 'Data Science', 'UBC', 'V6T1Z4');
 INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
 VALUES (2, 'Advisor 2', 'advisor2@ubc.ca', 'Computer Science', 'UBC', 'V6T1Z4');
 INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)

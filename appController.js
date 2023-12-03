@@ -106,6 +106,9 @@ router.get('/advisorsboard', async (req, res) => {
     res.json({data: tableContent});
 });
 
-
+router.post('/nestedGroup-jobboard', async (req, res) => {
+    const tableContent = await appService.countNestedGroup();
+    res.json({data: tableContent});
+});
 
 module.exports = router;

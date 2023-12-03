@@ -470,6 +470,41 @@ async function fetchAndDisplayAdvisors() {
     });
 }
 
+
+async function fetchAndDisplayNested() {
+    const response = await fetch("/nestedGroup-jobboard", {
+        method: 'POST'
+    });
+
+    const responseData = await response.json();
+    const jobBoardContent = responseData.data;
+    const tableBody = document.getElementById('countAvgAppsTableBody');
+
+    if (responseData.success) {
+        const messageElement = document.getElementById('countAvgAppsMsg');
+        messageElement.textContent = "Count successful!";
+        fetchTableData();
+    } else {
+        const messageElement = document.getElementById('countAvgAppsMsg');
+        messageElement.textContent = "Count unsuccessful!";
+    }
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    jobBoardContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
+
+
+
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
@@ -485,6 +520,7 @@ window.onload = function() {
     document.getElementById("updatePositionJobBoard").addEventListener("submit", updatePositionJobBoard);
     document.getElementById("countJobBoard").addEventListener("click", countJobBoard);
     document.getElementById("joinSearch").addEventListener("click", fetchAndDisplayJoin);
+    document.getElementById("countAvgApps").addEventListener("click", fetchAndDisplayNested);
 };
 
 // General function to refresh the displayed table data.
