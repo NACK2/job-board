@@ -45,6 +45,7 @@
         <tbody id = "jobBoardBody">
         </tbody>
     </table>
+
     <h2>Coop Advisors</h2>
     <table id="AdvisorsBoard" border="1">
         <thead>
@@ -59,6 +60,7 @@
         <tbody id = "AdvisorsBoardBody">
         </tbody>
     </table>
+
     <h2>Coop Students</h2>
     <table id="StudentsBoard" border="1">
         <thead>
@@ -128,13 +130,13 @@
 
     <h2 id="title">Find Students' information who applied to a specific Job</h2>
 
-    PostingID: <input type="number" id="findPostingID" placeholder="Enter postingID" required> <br><br>
+    Job Posting ID: <input type="number" id="findPostingID" placeholder="Enter ID" required> <br><br>
     <button id="joinSearch">Search</button> <br>
 
     <!-- A placeholder to display messages related to the joinQuery operation. -->
     <div id="joinQueryResultMessage"></div>
 
-    <h4>Students who applied to the specified postingID</h4>
+    <h4>Students who applied to the specified Job Posting:</h4>
     <table id="joinQueryTable" border="1">
         <thead>
             <tr>
@@ -185,7 +187,7 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
-    <h2> Filter Jobs (Please enter it as a comma separated list) </h2>
+    <h2> Filter Job Board (Please enter as a comma separated list) </h2>
     <form id="filterJobBoard">
         What column would you like to filter on?: <input type="text" id="insertFilter" placeholder="Company, Position"> <br><br>
 
@@ -196,7 +198,7 @@
     <br><hr><br> <!-- ========================================================================= -->
 
     <!-- User inputs an ID associated with a job posting, and that job posting will be removed  -->
-    <h2>Remove Job Posting (Using ID)</h2>
+    <h2>Remove Job Posting From Job Board (Using ID)</h2>
     <form id="removeIDJobBoard">
         ID: <input type="number" id="removeID" placeholder="Enter ID"> <br><br>
 
@@ -207,7 +209,7 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
-    <h2>Update Position</h2>
+    <h2>Update Position on Job Board</h2>
     <form id="updatePositionJobBoard">
         Target ID: <input type="number" id="targetID" placeholder="Enter target ID" required> <br><br>
         Update Position Details: <input type="text" id="insertUpdatePosition" placeholder="Enter New Position"> <br><br>
@@ -219,7 +221,7 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
-    <h2>Count how many Jobs are being Offfered by Each Company</h2>
+    <h2>Count how many Jobs are being Offered by Each Company</h2>
     <button id="countJobBoard"> Count </button> <br><br>
     <!-- A placeholder to display the count result. -->
     <div id="countResultMsg"></div> <br>

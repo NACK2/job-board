@@ -122,7 +122,7 @@ async function insertApplication(studentID,postingID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `INSERT INTO APPLYTO (studentid,postingid) VALUES (:studentID, :postingID)`,
-            [studentID,postingID],
+            [studentID, postingID],
             { autoCommit: true }
         );
 
