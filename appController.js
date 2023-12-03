@@ -106,7 +106,7 @@ router.get('/join-jobboard', async (req, res) => {
     // const result = await appService.fetchJoinBoardFromDb(postingID);
     // res.json({data: result});
 
-    const tableContent = await appService.fetchJobBoardFromDb();
+    const tableContent = await appService.fetchJoinBoardFromDb();
     res.json({data: tableContent});
 })
 

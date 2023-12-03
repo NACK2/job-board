@@ -392,6 +392,13 @@ async function fetchAndDisplayJoin() {
 
     const responseData = await response.json();
     const jobBoardContent = responseData.data;
+    const messageElement = document.getElementById('joinQueryResultMessage');
+
+    if (responseData.success) {
+        messageElement.textContent = "Search successful, here are the Students!";
+    } else {
+        messageElement.textContent = "Search unsuccessful!";
+    }
 
     // Always clear old, already fetched data before new fetching process.
     if (tableBody) {
