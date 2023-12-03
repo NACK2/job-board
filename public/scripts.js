@@ -381,7 +381,12 @@ async function countJobBoard() {
 async function fetchAndDisplayJoin() {
     const tableBody = document.getElementById('joinQueryTableBody');
 
-    const response = await fetch('/join-jobboard', {
+    // TODO this part isn't working properly
+    // const response = await fetch('/join-jobboard', {
+    //     method: 'GET'
+    // });
+
+    const response = await fetch('/jobboard', {
         method: 'GET'
     });
 
@@ -417,7 +422,7 @@ window.onload = function() {
     document.getElementById("removeIDJobBoard").addEventListener("submit", removeIDJobBoard);
     document.getElementById("updatePositionJobBoard").addEventListener("submit", updatePositionJobBoard);
     document.getElementById("countJobBoard").addEventListener("click", countJobBoard);
-    document.getElementById("joinQuery").addEventListener("click", fetchAndDisplayJoin);
+    document.getElementById("joinSearch").addEventListener("click", fetchAndDisplayJoin);
 };
 
 // General function to refresh the displayed table data.

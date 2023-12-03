@@ -143,71 +143,6 @@ async function filterJobBoard(columnNames) {
     });
 }
 
-// function getUserInput(promptText) {
-//     return prompt(promptText);
-// }
-
-// // WIP
-// async function filterJobBoard(columnName) {
-//     let input;
-//     return await withOracleDB(async (connection) => {
-//         if(!columnName || columnName != undefined) {
-//             let result;
-//             switch(columnName) {
-//                 case 'ID':
-//                     input = parseInt(getUserInput('Filtering for posting id:'));
-//                     result = await connection.execute(`SELECT *
-//                                 FROM JobPostingOfferedPosted j
-//                                 WHERE j.PostingID = ${input}`)
-//                     break;
-//
-//                 case 'Company':
-//                     input = getUserInput("Filtering for company name:");
-//                     result = await connection.execute(`SELECT *
-//                                 FROM JobPostingOfferedPosted j
-//                                 WHERE j.CompanyName = ${input}`)
-//                     break;
-//
-//                 case 'Position':
-//                     input = getUserInput("Filtering for posting position:");
-//                     result = await connection.execute(`SELECT *
-//                                 FROM JobPostingOfferedPosted j
-//                                 WHERE j.Position = ${input}`)
-//                     break;
-//
-//                 case 'Deadline':
-//                     input = getUserInput("Filtering for posting deadline (YYYY-MM-DD HH24:MI:SS):");
-//                     result = await connection.execute(`SELECT *
-//                                 FROM JobPostingOfferedPosted j
-//                                 WHERE j.Deadline = TO_TIMESTAMP('${input}', 'YYYY-MM-DD HH24:MI:SS')`)
-//                     break;
-//
-//                 // case 'Term':
-//                 //     input = parseInt(getUserInput('Filtering for placement term:'));
-//                 //     sqlQuery = `SELECT *
-//                 //                 FROM JobPostingOfferedPosted j
-//                 //                 WHERE j.term = ${input}`;
-//                 //     break;
-//
-//                 case 'Duration':
-//                     input = parseInt(getUserInput('Filtering for placement duration:'));
-//                     result = await connection.execute(`SELECT *
-//                                 FROM JobPostingOfferedPosted j
-//                                 WHERE j.Duration = ${input}`)
-//                     break;
-//
-//                 case 'DatePosted':
-//                     input = getUserInput("Filtering for posting date (YYYY-MM-DD HH24:MI:SS):");
-//                     result = await connection.execute(`SELECT *
-//                                 FROM JobPostingOfferedPosted j
-//                                 WHERE j.TimePosted = TO_TIMESTAMP('${input}', 'YYYY-MM-DD HH24:MI:SS')`)
-//                     break;
-//             }
-//             return result.rows;
-//         }
-//     })
-// }
-
 async function removeIDJobBoard(removeID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -245,21 +180,33 @@ async function countJobBoard() {
     });
 }
 
+// async function fetchJoinBoardFromDb() {
+//     return await withOracleDB(async (connection) => {
+//         const result = await connection.execute(
+//             `SELECT s.StudentID, s.Name, s.nApplications
+//              FROM JobPostingOfferedPosted j, ApplyTo a, AdvisedStudentAccesses s
+//              WHERE j.PostingID = :postingID
+//              AND j.PostingID = a.PostingID
+//              AND a.StudentID = s.StudentID`,
+//             [postingID]
+//         );
+//
+//         return result.rows;
+//     }).catch(() => {
+//         return [];
+//     })
+// }
+
 async function fetchJoinBoardFromDb() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `SELECT s.StudentID, s.Name, s.nApplications
-             FROM JobPostingOfferedPosted j, ApplyTo a, AdvisedStudentAccesses s
-             WHERE j.PostingID = :postingID
-             AND j.PostingID = a.PostingID
-             AND a.StudentID = s.StudentID`,
-            [postingID]
-        );
-
+            FROM JOBPOSTINGOFFEREDPOSTED j, APPLYTO a, ADVISEDSTUDENTACCESSES s
+            WHERE j.PostingID = 10 AND j.PostingID = a.PostingID AND a.StudnetID = s.StudentID`);
         return result.rows;
     }).catch(() => {
         return [];
-    })
+    });
 }
 
 module.exports = {
