@@ -124,21 +124,18 @@ CREATE TABLE Interviews(
     FOREIGN KEY (StudentID) REFERENCES AdvisedStudentAccesses(StudentID) ON DELETE CASCADE
 );
 
--- INSERT INTO Location(PostalCode, City) VALUES ('123456', 'Vancouver');
 INSERT INTO Location(PostalCode, City) VALUES ('V6T1Z4', 'Vancouver');
 INSERT INTO Location(PostalCode, City) VALUES ('654321', 'Waterloo');
 INSERT INTO Location(PostalCode, City) VALUES ('987654', 'Burnaby');
 INSERT INTO Location(PostalCode, City) VALUES ('abcdef', 'London');
 INSERT INTO Location(PostalCode, City) VALUES ('uvwxyz', 'Toronto');
 
--- INSERT INTO University(UniversityName, PostalCode) VALUES ('UBC', '123456');
 INSERT INTO University(UniversityName, PostalCode) VALUES ('UBC', 'V6T1Z4');
 INSERT INTO University(UniversityName, PostalCode) VALUES ('Waterloo', '654321');
 INSERT INTO University(UniversityName, PostalCode) VALUES ('SFU', '987654');
 INSERT INTO University(UniversityName, PostalCode) VALUES ('Western', 'abcdef');
 INSERT INTO University(UniversityName, PostalCode) VALUES ('UofT', 'uvwxyz');
 
--- INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Dept 1', 700, 'UBC', '123456');
 INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Computer Science', 700, 'UBC', 'V6T1Z4');
 INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Statistics', 700, 'UBC', 'V6T1Z4');
 INSERT INTO CoopProgram(DeptName, nStudents, UniversityName, PostalCode) VALUES ('Statistics', 500, 'Waterloo', '654321');
