@@ -101,13 +101,10 @@ router.get('/count-jobboard', async (req, res) => {
     }
 });
 
-router.get('/join-jobboard', async (req, res) => {
-    // const { postingID } = req.query;
-    // const result = await appService.fetchJoinBoardFromDb(postingID);
-    // res.json({data: result});
-
-    const tableContent = await appService.fetchJoinBoardFromDb();
-    res.json({data: tableContent});
+router.post('/join-jobboard', async (req, res) => {
+    const { postingID } = req.body;
+    const result = await appService.fetchJoinBoardFromDb(postingID);
+    res.json({data: result});
 })
 
 module.exports = router;

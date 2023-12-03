@@ -86,6 +86,7 @@ async function fetchDivideBoardFromDb() {
                  FROM ApplyTo AP
                  WHERE AP.StudentID = A.StudentID)
                        )`);
+        console.log(result);
         return result.rows;
     }).catch(() => {
         return [];
@@ -197,12 +198,14 @@ async function countJobBoard() {
 //     })
 // }
 
-async function fetchJoinBoardFromDb() {
+async function fetchJoinBoardFromDb(postingID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `SELECT s.StudentID, s.Name, s.nApplications
-            FROM JOBPOSTINGOFFEREDPOSTED j, APPLYTO a, ADVISEDSTUDENTACCESSES s
-            WHERE j.PostingID = 10 AND j.PostingID = a.PostingID AND a.StudnetID = s.StudentID`);
+             FROM JOBPOSTINGOFFEREDPOSTED j, APPLYTO a, ADVISEDSTUDENTACCESSES s
+             WHERE j.PostingID = :postingID AND j.PostingID = a.PostingID AND a.StudentID = s.StudentID`,
+            { postingID });
+
         return result.rows;
     }).catch(() => {
         return [];

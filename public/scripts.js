@@ -128,9 +128,20 @@ async function divideJobBoard() {
     const responseData = await response.json();
 
     if (responseData.success) {
-        const messageElement = document.getElementById('DivideResultMsg');
-        messageElement.textContent = "Student Successfully found";
-        fetchTableData();
+        const jobBoardContent = responseData.data;
+        const tableBody = document.getElementById('DivideBoardBody');
+        // Always clear old, already fetched data before new fetching process.
+        if (tableBody) {
+            tableBody.innerHTML = '';
+        }
+
+        jobBoardContent.forEach(user => {
+            const row = tableBody.insertRow();
+            user.forEach((field, index) => {
+                const cell = row.insertCell(index);
+                cell.textContent = field;
+            });
+        });
     } else {
         const messageElement = document.getElementById('DivideResultMsg');
         messageElement.textContent = "Error finding Student";
@@ -380,25 +391,19 @@ async function countJobBoard() {
 
 async function fetchAndDisplayJoin() {
     const tableBody = document.getElementById('joinQueryTableBody');
-
-    // TODO this part isn't working properly
-    // const response = await fetch('/join-jobboard', {
-    //     method: 'GET'
-    // });
-
-    const response = await fetch('/jobboard', {
-        method: 'GET'
+    const postingid = document.getElementById('findPostingID').value;
+    const response = await fetch('/join-jobboard', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            postingID: postingid
+        })
     });
 
     const responseData = await response.json();
     const jobBoardContent = responseData.data;
-    const messageElement = document.getElementById('joinQueryResultMessage');
-
-    if (responseData.success) {
-        messageElement.textContent = "Search successful, here are the Students!";
-    } else {
-        messageElement.textContent = "Search unsuccessful!";
-    }
 
     // Always clear old, already fetched data before new fetching process.
     if (tableBody) {
