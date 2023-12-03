@@ -341,7 +341,7 @@ async function updatePositionJobBoard(event) {
     event.preventDefault();
 
     const idValue = document.getElementById('targetID').value;
-    const updatePositionValue = document.getElementById('insertUpdatePosition').value;
+    const updatePositionValue = document.getElementById('updatePosition').value;
 
     const response = await fetch('/update-position-jobboard', {
         method: 'POST',
