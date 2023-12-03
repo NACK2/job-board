@@ -419,6 +419,33 @@ async function fetchAndDisplayJoin() {
     });
 }
 
+async function countHavingJobBoard() {
+    const months = document.getElementById('durationMonths').value;
+    const response = await fetch("/countHaving-jobboard", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            months: months
+        })
+    });
+    const responseData = await response.json();
+    const jobBoardContent = responseData.data;
+    const tableBody = document.getElementById('countHavingJobsTableBody');
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    jobBoardContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
 async function fetchAndDisplayAdvisors() {
     const tableBody = document.getElementById('AdvisorsBoardBody');
 
@@ -466,5 +493,4 @@ function fetchTableData() {
     fetchAndDisplayPostings();
     fetchAndDisplayUsers();
     fetchAndDisplayApplications();
-    fetchAndDisplayAdvisors();
 }
