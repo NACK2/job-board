@@ -210,41 +210,17 @@
     <br><hr><br> <!-- ========================================================================= -->
 
     <h1> WIP </h1>
-    <h2>Update Position on Job Board</h2>
-    <form id="updatePositionJobBoard">
+    <h2>Update Job Board</h2>
+    <form id="updateJobBoard">
         Target ID: <input type="number" id="targetID" placeholder="Enter target ID" required> <br><br>
-        Update Company: <input type="text" id="updateCompany" placeholder="Enter New Company"> <br><br>
-        Update Position: <input type="text" id="updatePosition" placeholder="Enter New Position"> <br><br>
-        Update Deadline: <input type="date" id="updateDeadline" placeholder="Enter New Deadline"> <br><br>
+        Which column would you like to update?: <input type="text" id="targetColumn" placeholder="eg. Position"> <br><br>
+        What value would you like to update with?: <input type="text" id="newValue" placeholder="Enter New Value" maxlength="50"> <br><br>
 
-        Update Term:
-        <br> <!-- "name" attribute is for grouping the buttons -->
-        <input type="radio" id="updateWinter" name="updateTerm" value="Winter">
-        <label for="updateWinter">Winter</label><br>
-
-        <input type="radio" id="updateSpring" name="updateTerm" value="Spring">
-        <label for="updateSpring">Spring</label><br>
-
-        <input type="radio" id="updateSummer" name="updateTerm" value="Summer">
-        <label for="updateSummer">Summer</label><br><br>
-
-        Update Duration:
-        <br> <!-- "name" attribute is for grouping the buttons -->
-        <input type="radio" id="updateFour" name="updateDuration" value="4">
-        <label for="updateFour">4</label><br>
-
-        <input type="radio" id="updateEight" name="updateDuration" value="8">
-        <label for="updateEight">8</label><br>
-
-        <input type="radio" id="updateTwelve" name="updateDuration" value="12">
-        <label for="updateTwelve">12</label><br><br>
-
-        Update Date Posted: <input type="date" id="updateDatePosted" placeholder="Enter New Date Posted"> <br><br>
 
         <button type="submit"> Update </button> <br>
     </form>
     <!-- A placeholder to display messages related to the update operation. -->
-    <div id="updatePositionResultMsg"></div>
+    <div id="updateResultMsg"></div>
 
     <br><hr><br> <!-- ========================================================================= -->
 
