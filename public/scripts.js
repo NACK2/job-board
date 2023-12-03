@@ -351,10 +351,9 @@ async function updateJobBoard(event) {
     }
 
     const id = document.getElementById('targetID').value;
-    const updateColumn = document.getElementById('targetColumn').value.toLowerCase();
+    let updateColumn = document.getElementById('targetColumn').value.toLowerCase();
     const updateValue = document.getElementById('newValue').value;
-
-    console.log("id: ", id, " col: ", updateColumn, " value: ", updateValue);
+    updateColumn = nameToAttr[updateColumn]; // converting to attribute name counterpart for database
 
     const response = await fetch('/update-jobboard', {
         method: 'POST',
@@ -372,10 +371,10 @@ async function updateJobBoard(event) {
     const messageElement = document.getElementById('updateResultMsg');
 
     if (responseData.success) {
-        messageElement.textContent = "Name updated successfully!";
+        messageElement.textContent = "Job Board updated successfully!";
         fetchTableData();
     } else {
-        messageElement.textContent = "Error updating name!";
+        messageElement.textContent = "Error updating Job Board!";
     }
 }
 

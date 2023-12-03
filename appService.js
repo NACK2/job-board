@@ -157,11 +157,11 @@ async function removeIDJobBoard(removeID) {
     });
 }
 
-async function updatePositionJobBoard(targetID, newPosition) {
+async function updateJobBoard(targetID, targetColumn, newValue) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `UPDATE JOBPOSTINGOFFEREDPOSTED SET position=:newPosition where PostingID=:targetID`,
-            [newPosition, targetID],
+            `UPDATE JOBPOSTINGOFFEREDPOSTED SET ${targetColumn}=:newValue where PostingID=:targetID`,
+            [newValue, targetID],
             { autoCommit: true }
         );
 
@@ -244,7 +244,7 @@ module.exports = {
     insertJobBoard,
     filterJobBoard,
     removeIDJobBoard,
-    updatePositionJobBoard,
+    updateJobBoard,
     countJobBoard,
     fetchStudentsBoardFromDb,
     fetchApplicationsBoardFromDb,
