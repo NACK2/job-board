@@ -150,17 +150,6 @@ INSERT INTO JobBoard(BoardTitle) VALUES ('Board 3');
 INSERT INTO JobBoard(BoardTitle) VALUES ('Board 4');
 INSERT INTO JobBoard(BoardTitle) VALUES ('Board 5');
 
--- INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
--- VALUES (1, 'Advisor 1', 'advisor1@ubc.ca', 'Dept 1', 'UBC', '123456');
--- INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
--- VALUES (2, 'Advisor 2', 'advisor2@waterloo.ca', 'Dept 2', 'Waterloo', '654321');
--- INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
--- VALUES (3, 'Advisor 3', 'advisor3@sfu.ca', 'Dept 3', 'SFU', '987654');
--- INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
--- VALUES (4, 'Advisor 4', 'advisor4@western.ca', 'Dept 4', 'Western', 'abcdef');
--- INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
--- VALUES (5, 'Advisor 5', 'advisor5@uoft.ca', 'Dept 5', 'UofT', 'uvwxyz');
-
 INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)
 VALUES (1, 'Advisor 1', 'advisor1@ubc.ca', 'Data Science', 'UBC', 'V6T1Z4');
 INSERT INTO EmployedCoopAdvisor(AdvisorID, AdvisorName, AdvisorEmail, DeptName, UniversityName, PostalCode)

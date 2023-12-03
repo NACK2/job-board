@@ -480,14 +480,14 @@ async function fetchAndDisplayNested() {
     const jobBoardContent = responseData.data;
     const tableBody = document.getElementById('countAvgAppsTableBody');
 
-    if (responseData.success) {
-        const messageElement = document.getElementById('countAvgAppsMsg');
-        messageElement.textContent = "Count successful!";
-        fetchTableData();
-    } else {
-        const messageElement = document.getElementById('countAvgAppsMsg');
-        messageElement.textContent = "Count unsuccessful!";
-    }
+    // if (responseData.success) {
+    //     const messageElement = document.getElementById('countAvgAppsMsg');
+    //     messageElement.textContent = "Count successful!";
+    //     fetchTableData();
+    // } else {
+    //     const messageElement = document.getElementById('countAvgAppsMsg');
+    //     messageElement.textContent = "Count unsuccessful!";
+    // }
 
     // Always clear old, already fetched data before new fetching process.
     if (tableBody) {
