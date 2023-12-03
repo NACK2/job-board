@@ -106,6 +106,6 @@ router.get('/advisorsboard', async (req, res) => {
     res.json({data: tableContent});
 });
 
-//router.post()
+
 
 module.exports = router;

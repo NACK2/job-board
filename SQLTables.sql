@@ -124,7 +124,8 @@ CREATE TABLE Interviews(
     FOREIGN KEY (StudentID) REFERENCES AdvisedStudentAccesses(StudentID) ON DELETE CASCADE
 );
 
-INSERT INTO Location(PostalCode, City) VALUES ('123456', 'Vancouver');
+-- INSERT INTO Location(PostalCode, City) VALUES ('123456', 'Vancouver');
+INSERT INTO Location(PostalCode, City) VALUES ('V6T1Z4', 'Vancouver');
 INSERT INTO Location(PostalCode, City) VALUES ('654321', 'Waterloo');
 INSERT INTO Location(PostalCode, City) VALUES ('987654', 'Burnaby');
 INSERT INTO Location(PostalCode, City) VALUES ('abcdef', 'London');
