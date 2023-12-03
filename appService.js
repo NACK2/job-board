@@ -179,6 +179,32 @@ async function countJobBoard() {
         return [];
     });
 }
+async function countHavingJobBoard(months) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT CompanyName FROM JobPostingOfferedPosted GROUP BY CompanyName HAVING MIN(Duration) >= :months',
+            {months});
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+// async function fetchJoinBoardFromDb() {
+//     return await withOracleDB(async (connection) => {
+//         const result = await connection.execute(
+//             `SELECT s.StudentID, s.Name, s.nApplications
+//              FROM JobPostingOfferedPosted j, ApplyTo a, AdvisedStudentAccesses s
+//              WHERE j.PostingID = :postingID
+//              AND j.PostingID = a.PostingID
+//              AND a.StudentID = s.StudentID`,
+//             [postingID]
+//         );
+//
+//         return result.rows;
+//     }).catch(() => {
+//         return [];
+//     })
+// }
+
 
 async function fetchJoinBoardFromDb(postingID) {
     return await withOracleDB(async (connection) => {
@@ -220,5 +246,6 @@ module.exports = {
     fetchDivideBoardFromDb,
     insertApplication,
     fetchJoinBoardFromDb,
+    countHavingJobBoard,
     fetchAdvisorsBoardFromDb
 };

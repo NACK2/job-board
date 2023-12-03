@@ -127,6 +127,8 @@
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2 id="title">Find Students' information who applied to a specific Job</h2>
+    <h4>attempt 2</h4>
+
 
     PostingID: <input type="number" id="findPostingID" placeholder="Enter postingID" required> <br><br>
     <button id="joinSearch">Search</button> <br>
@@ -231,6 +233,27 @@
         </tr>
         </thead>
         <tbody id="countJobsTableBody">
+        <!--        results        -->
+        </tbody>
+    </table>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2>Which Companies offer jobs that are at least ___ months long</h2>
+    <form id="countHavingJobBoard">
+        Minimum Duration of Months?:
+        <input type="number" id="durationMonths" placeholder="eg. 4,8,12" required> <br><br>
+
+        <button type="submit"> Search </button> <br>
+    </form>
+
+    <table id="countHavingJobsTable" border="1">
+        <thead>
+        <tr>
+            <th>Company</th>
+        </tr>
+        </thead>
+        <tbody id="countHavingJobsTableBody">
         <!--        results        -->
         </tbody>
     </table>
