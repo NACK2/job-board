@@ -336,6 +336,11 @@ async function removeIDJobBoard(event) {
     }
 }
 
+function isValidDate(dateString) { // source: https://tecadmin.net/validate-date-string-in-javascript/
+    const date = new Date(dateString);
+    return date instanceof Date && !isNaN(date);
+}
+
 // Updates attributes/columns of a job board using an ID in the job board
 async function updateJobBoard(event) {
     event.preventDefault();
@@ -350,10 +355,17 @@ async function updateJobBoard(event) {
         "date posted": "DatePosted"
     }
 
+    const messageElement = document.getElementById('updateResultMsg');
     const id = document.getElementById('targetID').value;
     let updateColumn = document.getElementById('targetColumn').value.toLowerCase();
     const updateValue = document.getElementById('newValue').value;
     updateColumn = nameToAttr[updateColumn]; // converting to attribute name counterpart for database
+
+
+    if ((updateColumn === "Deadline" || updateColumn === "DatePosted") && !isValidDate(updateValue)) { // invalid date
+        messageElement.textContent = "Error updating Job Board!";
+        return;
+    }
 
     const response = await fetch('/update-jobboard', {
         method: 'POST',
@@ -368,7 +380,6 @@ async function updateJobBoard(event) {
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('updateResultMsg');
 
     if (responseData.success) {
         messageElement.textContent = "Job Board updated successfully!";
