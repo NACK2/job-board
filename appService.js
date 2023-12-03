@@ -197,6 +197,7 @@ async function fetchJoinBoardFromDb(postingID) {
 async function fetchAdvisorsBoardFromDb() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
+            // todo maybe include University
             `SELECT AdvisorID, AdvisorName, AdvisorEmail, DeptName
              FROM EMPLOYEDCOOPADVISOR`);
         return result.rows;

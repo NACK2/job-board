@@ -419,31 +419,6 @@ async function fetchAndDisplayJoin() {
     });
 }
 
-
-// async function fetchAndDisplayUsers() {
-//     const tableBody = document.getElementById('studentsBoardBody');
-//
-//     const response = await fetch('/studentsBoard', {
-//         method: 'GET'
-//     });
-//
-//     const responseData = await response.json();
-//     const jobBoardContent = responseData.data;
-//
-//     // Always clear old, already fetched data before new fetching process.
-//     if (tableBody) {
-//         tableBody.innerHTML = '';
-//     }
-//
-//     jobBoardContent.forEach(user => {
-//         const row = tableBody.insertRow();
-//         user.forEach((field, index) => {
-//             const cell = row.insertCell(index);
-//             cell.textContent = field;
-//         });
-//     });
-// }
-
 async function fetchAndDisplayAdvisors() {
     const tableBody = document.getElementById('AdvisorsBoardBody');
 
