@@ -493,4 +493,5 @@ function fetchTableData() {
     fetchAndDisplayPostings();
     fetchAndDisplayUsers();
     fetchAndDisplayApplications();
+    fetchAndDisplayAdvisors();
 }
