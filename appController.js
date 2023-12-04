@@ -114,9 +114,7 @@ router.post('/join-jobboard', async (req, res) => {
 
 router.post('/search-jobboard', async (req, res) => {
     const { query } = req.body;
-    console.log(query);
     const result = await appService.searchJobBoardFromDb(query);
-    console.log(result);
     res.json({data: result});
 })
 

@@ -598,6 +598,7 @@ async function searchJobBoard(event) {
 }
 function build(event) {
     event.preventDefault()
+
     const nameToAttr = {
         "id": "PostingID",
         "company": "CompanyName",
@@ -607,12 +608,11 @@ function build(event) {
         "duration": "Duration",
         "date posted": "DatePosted"
     }
-    const queryColumn = document.getElementById('queryColumn').value;
+    const queryColumn = document.getElementById('queryColumn').value.toLowerCase();
     const queryOperand = document.getElementById('queryOperand').value;
     const queryVariable = document.getElementById('queryVariable').value;
     const query = document.getElementById('query');
     query.textContent += "(" + nameToAttr[queryColumn] + " " + queryOperand + " " + queryVariable +")";
-    console.log(query.textContent);
 }
 function and(event) {
     event.preventDefault()
