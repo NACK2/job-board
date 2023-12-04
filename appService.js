@@ -253,8 +253,8 @@ async function searchJobBoardFromDb(query) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `SELECT PostingID, CompanyName, Position, Deadline, Term, Duration, DatePosted
-            FROM JOBPOSTINGOFFEREDPOSTED
-            WHERE ${query})`);
+             FROM JOBPOSTINGOFFEREDPOSTED
+             WHERE ${query}`);
         return result.rows;
     }).catch(() => {
         return [];
