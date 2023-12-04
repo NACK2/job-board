@@ -565,8 +565,70 @@ async function fetchAndDisplayNested() {
     });
 }
 
+async function searchJobBoard(event) {
+    event.preventDefault();
 
+    const query = document.getElementById('query').innerText;
+    const response = await fetch("/search-jobboard", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            query: query
+        })
+    });
 
+    const responseData = await response.json();
+    const jobBoardContent = responseData.data;
+
+    const tableBody = document.getElementById('queryTableBody');
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    jobBoardContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
+function build(event) {
+    event.preventDefault()
+    const nameToAttr = {
+        "id": "PostingID",
+        "company": "CompanyName",
+        "position": "Position",
+        "deadline": "Deadline",
+        "term": "Term",
+        "duration": "Duration",
+        "date posted": "DatePosted"
+    }
+    const queryColumn = document.getElementById('queryColumn').value;
+    const queryOperand = document.getElementById('queryOperand').value;
+    const queryVariable = document.getElementById('queryVariable').value;
+    const query = document.getElementById('query');
+    query.textContent += "(" + nameToAttr[queryColumn] + " " + queryOperand + " " + queryVariable +")";
+    console.log(query.textContent);
+}
+function and(event) {
+    event.preventDefault()
+    const query = document.getElementById('query');
+    query.textContent += " AND ";
+}
+function or(event) {
+    event.preventDefault()
+    const query = document.getElementById('query');
+    query.textContent += " OR ";
+}
+function reset(event) {
+    event.preventDefault()
+    const query = document.getElementById('query');
+    query.innerText = "";
+}
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
@@ -585,6 +647,11 @@ window.onload = function() {
     document.getElementById("joinSearch").addEventListener("click", fetchAndDisplayJoin);
     document.getElementById("countAvgApps").addEventListener("click", fetchAndDisplayNested);
     document.getElementById("countHavingJobBoard").addEventListener("submit", countHavingJobBoard);
+    document.getElementById("QueryButton").addEventListener("click", searchJobBoard);
+    document.getElementById("build").addEventListener("click",build);
+    document.getElementById("and").addEventListener("click",and);
+    document.getElementById("or").addEventListener("click",or);
+    document.getElementById("reset").addEventListener("click",reset);
 };
 
 // General function to refresh the displayed table data.

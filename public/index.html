@@ -98,7 +98,36 @@
     <div id="resetResultMsg"></div>
 
     <br><hr><br> <!-- ========================================================================= -->
+    <h2>Search Jobs</h2>
+    Please enter in Query Options:
+    <h2 id = "query"></h2>
+    <input type="text" id="queryColumn" placeholder="eg. company" required>
+    <input type="text" id="queryOperand" placeholder="eg. =,>,<" required>
+    <input type="text" id="queryVariable" placeholder="eg. company 1" required>
+    <button type="submit" id = "build"> Build </button>
+    <button type="submit" id = "and"> AND</button>
+    <button type="submit" id = "or"> OR </button>
+    <button type="submit" id = "reset"> Reset </button>
+    <button type="submit" id="QueryButton"> Search </button> <br>
 
+    <table id="SearchJobsTable" border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Company</th>
+            <th>Position</th>
+            <th>Deadline</th>
+            <th>Term</th>
+            <th>Duration</th>
+            <th>Date Posted</th>
+        </tr>
+        </thead>
+        <tbody id="queryTableBody">
+        <!--        results        -->
+        </tbody>
+    </table>
+
+    <br><hr><br>
     <h2>Insert a Student-Application pair (Student and Application ID must both exist) </h2>
     <form id="insertApplication">
         Student ID: <input type="number" id="studentID" placeholder="Enter Student ID" required> <br><br>
@@ -106,7 +135,6 @@
 
         <button type="submit"> Insert </button> <br>
     </form>
-    <!-- A placeholder to display messages related to the update operation. -->
     <div id="insertApplicationResultMsg"></div>
     <br><hr><br> <!-- ========================================================================= -->
 
