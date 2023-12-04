@@ -111,6 +111,7 @@ router.post('/join-jobboard', async (req, res) => {
     const result = await appService.fetchJoinBoardFromDb(postingID);
     res.json({data: result});
 })
+
 router.post('/search-jobboard', async (req, res) => {
     const { query } = req.body;
     console.log(query);
@@ -118,6 +119,7 @@ router.post('/search-jobboard', async (req, res) => {
     console.log(result);
     res.json({data: result});
 })
+
 router.get('/advisorsboard', async (req, res) => {
     const tableContent = await appService.fetchAdvisorsBoardFromDb();
     res.json({data: tableContent});
