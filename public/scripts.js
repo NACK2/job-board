@@ -608,6 +608,7 @@ function build(event) {
         "duration": "Duration",
         "date posted": "DatePosted"
     }
+
     const queryColumn = document.getElementById('queryColumn').value.toLowerCase();
     const queryOperand = document.getElementById('queryOperand').value;
     const queryVariable = document.getElementById('queryVariable').value;
