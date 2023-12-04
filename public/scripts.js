@@ -612,7 +612,6 @@ function build(event) {
     const queryVariable = document.getElementById('queryVariable').value;
     const query = document.getElementById('query');
     query.textContent += "(" + nameToAttr[queryColumn] + " " + queryOperand + " " + queryVariable +")";
-    console.log(query.textContent);
 }
 function and(event) {
     event.preventDefault()
