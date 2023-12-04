@@ -19,7 +19,7 @@ router.get('/jobboard', async (req, res) => {
     const tableContent = await appService.fetchJobBoardFromDb();
     res.json({data: tableContent});
 });
-router.get('/studentsBoard', async (req, res) => {
+router.get('/students-board', async (req, res) => {
     const tableContent = await appService.fetchStudentsBoardFromDb();
     res.json({data: tableContent});
 });
@@ -31,7 +31,7 @@ router.get('/divide-jobboard', async (req, res) => {
     const tableContent = await appService.fetchDivideBoardFromDb();
     res.json({data: tableContent});
 });
-router.post("/initiate-jobboard", async (req, res) => {
+router.get("/initiate-jobboard", async (req, res) => {
     const initiateResult = await appService.initiateJobBoard();
     if (initiateResult) {
         res.json({ success: true });

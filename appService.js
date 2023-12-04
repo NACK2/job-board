@@ -56,7 +56,7 @@ async function fetchJobBoardFromDb() {
 async function fetchStudentsBoardFromDb() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `SELECT STUDENTID,NAME,EMAIL,STANDING,NAPPLICATIONS,ADVISORID
+            `SELECT STUDENTID, NAME, EMAIL, STANDING, NAPPLICATIONS, ADVISORID
             FROM ADVISEDSTUDENTACCESSES`);
         return result.rows;
     }).catch(() => {
@@ -66,7 +66,7 @@ async function fetchStudentsBoardFromDb() {
 async function fetchApplicationsBoardFromDb() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `SELECT STUDENTID,POSTINGID
+            `SELECT STUDENTID, POSTINGID
             FROM APPLYTO`);
         return result.rows;
     }).catch(() => {

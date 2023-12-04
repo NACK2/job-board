@@ -84,7 +84,7 @@ async function fetchAndDisplayApplications() {
 async function fetchAndDisplayUsers() {
     const tableBody = document.getElementById('studentsBoardBody');
 
-    const response = await fetch('/studentsBoard', {
+    const response = await fetch('/students-board', {
         method: 'GET'
     });
 
@@ -108,7 +108,7 @@ async function fetchAndDisplayUsers() {
 // This function resets or initializes the job board
 async function resetJobBoard() {
     const response = await fetch("/initiate-jobboard", {
-        method: 'POST'
+        method: 'GET'
     });
     const responseData = await response.json();
 
