@@ -1,4 +1,4 @@
-# Full Stack Job Board Website
+# Full-Stack Job Board Website
 ### HTML, CSS, JavaScript, Node.js, Express.js, SQL, OracleDB
 
 This Job Board allows you to manipulate many different database relations such as a job posting table, advisor table, student table, and much more. 
